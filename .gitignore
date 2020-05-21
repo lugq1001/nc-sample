@@ -1,0 +1,15 @@
+app/mobilization/.idea/
+app/mobilization/app/.idea/
+app/mobilization/app/build/
+app/mobilization/local.properties
+app/mobilization/app/local.properties
+app/mobilization/.gradle
+
+server/.idea/
+server/build/
+server/.gradle/
+
+*.db
+*.iml
+
+

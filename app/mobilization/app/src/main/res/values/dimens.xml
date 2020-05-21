@@ -1,0 +1,25 @@
+<resources>
+    <dimen name="progress_size">24dp</dimen>
+
+    <dimen name="spacing_v_1">4dp</dimen>
+    <dimen name="spacing_v_2">8dp</dimen>
+    <dimen name="spacing_v_3">12dp</dimen>
+    <dimen name="spacing_v_4">20dp</dimen>
+
+    <dimen name="spacing_h_0">4dp</dimen>
+    <dimen name="spacing_h_1">12dp</dimen>
+    <dimen name="spacing_h_2">20dp</dimen>
+    <dimen name="spacing_h_3">32dp</dimen>
+
+    <dimen name="text_size_small">13sp</dimen>
+    <dimen name="text_size_middle">15sp</dimen>
+    <dimen name="text_size_large">17sp</dimen>
+    <dimen name="text_size_banner">20sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="appbar_padding">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+
+</resources>

@@ -1,0 +1,46 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'org.jetbrains.kotlin.kapt' version '1.3.72'
+}
+
+group 'com.nextcont.sample'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    implementation "io.javalin:javalin:3.8.0"
+
+    implementation "org.slf4j:slf4j-simple:2.0.0-alpha1"
+
+    // db
+    implementation 'org.dizitart:potassium-nitrite:3.4.1'
+
+    // json
+    implementation 'com.squareup.moshi:moshi-kotlin:1.9.2'
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.9.2'
+
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+shadowJar {
+    archiveFileName = 'ncdemo.jar'
+    destinationDirectory = file("../")
+    manifest {
+        attributes (
+                'Main-Class' : 'com.nextcont.sample.Program'
+        )
+    }
+}

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ui.fragment.AccountFragment">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iAvatar"
+            android:scaleType="centerCrop"
+            android:layout_width="72dp"
+            android:contentDescription="@null"
+            android:src="@mipmap/ic_avatar"
+            android:layout_marginTop="@dimen/spacing_v_4"
+            android:layout_height="72dp" />
+
+        <TextView
+            android:id="@+id/iNameText"
+            style="@style/TextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_v_4"
+            android:text="@string/app_name" />
+
+        <TextView
+            android:id="@+id/iAgeText"
+            style="@style/TextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_v_3"
+            android:text="@string/app_name" />
+
+        <TextView
+            android:id="@+id/iJobText"
+            style="@style/TextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_v_2"
+            android:text="@string/app_name" />
+
+        <Button
+            android:layout_marginTop="40dp"
+            android:id="@+id/iLogoutButton"
+            android:layout_marginStart="@dimen/spacing_h_2"
+            android:layout_marginEnd="@dimen/spacing_h_2"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:text="退出登录"
+            android:layout_height="40dp" />
+
+        <Button
+            android:id="@+id/iDisableButton"
+            android:background="@drawable/bg_btn_red"
+            android:layout_marginTop="@dimen/spacing_v_4"
+            android:layout_marginStart="@dimen/spacing_h_2"
+            android:layout_marginEnd="@dimen/spacing_h_2"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:text="停用该设备"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/spacing_v_3"
+        android:layout_height="wrap_content"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/ic_secure"
+            android:contentDescription="@null" />
+
+        <TextView
+            style="@style/TextTips"
+            android:textSize="@dimen/text_size_middle"
+            android:layout_marginStart="@dimen/spacing_h_0"
+            android:textColor="@color/colorSecure"
+            android:text="@string/login_secure" />
+
+    </LinearLayout>
+
+</RelativeLayout>
