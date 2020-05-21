@@ -27,7 +27,8 @@ class LaunchActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        uploadDevice()
+        // 未登录
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun uploadDevice() {

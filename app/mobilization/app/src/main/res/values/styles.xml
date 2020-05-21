@@ -3,9 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/primary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -20,26 +21,26 @@
     <style name="StyleProgress">
         <item name="android:layout_width">@dimen/progress_size</item>
         <item name="android:layout_height">@dimen/progress_size</item>
-        <item name="android:indeterminateTint">@color/colorPrimary</item>
+        <item name="android:indeterminateTint">@color/primary</item>
     </style>
 
     <style name="TextTitle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_middle</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
 
     <style name="TextTips" parent="@style/TextTitle">
         <item name="android:textSize">@dimen/text_size_small</item>
-        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textColor">@color/textLight</item>
     </style>
 
     <style name="EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_large</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
 
     <style name="Button">

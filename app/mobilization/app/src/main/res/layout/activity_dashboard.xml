@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/iTopView"
         android:visibility="gone"
-        android:background="@color/colorPrimaryLight"
+        android:background="@color/primaryLight"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
         android:layout_height="32dp">
@@ -34,12 +34,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/colorPrimary" />
+        android:background="@color/primary" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/iTab"
         android:layout_width="match_parent"
-        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorColor="@color/primary"
         app:tabIndicatorHeight="4dp"
         android:layout_height="wrap_content"/>
 

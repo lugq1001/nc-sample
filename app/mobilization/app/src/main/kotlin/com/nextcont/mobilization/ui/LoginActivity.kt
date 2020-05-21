@@ -8,10 +8,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import com.nextcont.mobilization.R
 import com.nextcont.mobilization.model.Account
 import com.nextcont.mobilization.network.MobApi
 import com.nextcont.mobilization.util.DialogUtil
-import com.nextcont.mobilization.R
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -57,19 +57,19 @@ class LoginActivity : AppCompatActivity() {
 
         // 登录
         MobApi.login(username, password, Account.deviceId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ resp ->
-                Account.user = resp.user
-                startActivity(Intent(this, DashboardActivity::class.java))
-                finish()
-            }, { e ->
-                iUserNameEdit.isEnabled = true
-                iPasswordEdit.isEnabled = true
-                iLoginButton.visibility = VISIBLE
-                iProgress.visibility = INVISIBLE
-                DialogUtil.showAlert(this, e.localizedMessage)
-            })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ resp ->
+                    Account.user = resp.user
+                    startActivity(Intent(this, DashboardActivity::class.java))
+                    finish()
+                }, { e ->
+                    iUserNameEdit.isEnabled = true
+                    iPasswordEdit.isEnabled = true
+                    iLoginButton.visibility = VISIBLE
+                    iProgress.visibility = INVISIBLE
+                    DialogUtil.showAlert(this, e.localizedMessage)
+                })
     }
 
 

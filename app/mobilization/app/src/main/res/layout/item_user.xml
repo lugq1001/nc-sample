@@ -40,7 +40,7 @@
             <TextView
                 style="@style/TextTips"
                 android:id="@+id/iJobText"
-                android:textColor="@color/colorText"
+                android:textColor="@color/text"
                 android:layout_marginTop="@dimen/spacing_v_1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

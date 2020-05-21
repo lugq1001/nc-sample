@@ -81,12 +81,12 @@ class DashboardActivity : AppCompatActivity() {
             var showEdit = false
             if (Util.isConnectedWifi(this) || Util.isAirplaneModeOn(this)) {
                 iTipsText.text = "当前网络环境不可信，权限变更为: 只读"
-                iTopView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorWarning))
+                iTopView.setBackgroundColor(ContextCompat.getColor(this, R.color.warning))
                 showEdit = false
             } else {
                 iTipsText.text = ""
                 iTipsText.text = "当前网络可信任，已建立安全连接"
-                iTopView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimaryLight))
+                iTopView.setBackgroundColor(ContextCompat.getColor(this, R.color.primaryLight))
                 showEdit = true
             }
             if (fragments.isNotEmpty()) {

@@ -88,7 +88,7 @@
             style="@style/TextTips"
             android:textSize="@dimen/text_size_middle"
             android:layout_marginStart="@dimen/spacing_h_0"
-            android:textColor="@color/colorSecure"
+            android:textColor="@color/success"
             android:text="@string/login_secure" />
 
     </LinearLayout>
