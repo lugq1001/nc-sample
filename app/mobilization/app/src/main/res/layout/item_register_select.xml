@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout style="@style/FormRow">
+
+        <TextView
+            android:id="@+id/iTitleText"
+            style="@style/TextTitle"
+            android:layout_width="78dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|end"
+            android:text="@string/app_name" />
+
+        <Button
+            android:id="@+id/iSelectButton"
+            style="@style/TextButton"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/spacing_h_1"
+            android:text="@string/app_name"
+            android:textColor="@color/primary" />
+
+    </LinearLayout>
+
+    <View style="@style/SplitH" />
+
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/container"
+    android:orientation="vertical"
+    tools:context=".ui.main.LoginActivity">
+
+    <include
+        android:id="@+id/iUserNameRow"
+        layout="@layout/item_register_input" />
+
+    <include
+        android:id="@+id/iPasswordRow"
+        layout="@layout/item_register_input" />
+
+    <include
+        android:id="@+id/iPassword2Row"
+        layout="@layout/item_register_input" />
+
+    <include
+        android:id="@+id/iFullNameRow"
+        layout="@layout/item_register_input" />
+
+    <include
+        android:id="@+id/iIdCardRow"
+        layout="@layout/item_register_input" />
+
+    <include
+        android:id="@+id/iBirthdayRow"
+        layout="@layout/item_register_select" />
+
+    <include
+        android:id="@+id/iGenderRow"
+        layout="@layout/item_register_select" />
+
+    <include
+        android:id="@+id/iRoleRow"
+        layout="@layout/item_register_select" />
+
+
+    <Button
+        android:id="@+id/iFaceButton"
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/spacing_v_4"
+        android:background="@drawable/bg_btn_register"
+        android:text="@string/app_name"
+        android:textColor="@color/primaryLight" />
+
+</LinearLayout>

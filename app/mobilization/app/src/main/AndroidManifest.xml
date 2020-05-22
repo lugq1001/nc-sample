@@ -17,7 +17,7 @@
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="n">
         <activity
-            android:name=".ui.LaunchActivity"
+            android:name=".ui.main.LaunchActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.main.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.DashboardActivity"

@@ -17,4 +17,12 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+
+    <string name="title_register">注册</string>
+    <string name="register_username_hint">6&#8211;20位英文或数字</string>
+    <string name="register_password_hint">6&#8211;12位英文或数字</string>
+    <string name="register_password_confirm">请再次输入密码</string>
+    <string name="register_full_name">姓名</string>
+    <string name="register_id_card">身份证</string>
+
 </resources>

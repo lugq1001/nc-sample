@@ -15,7 +15,7 @@ class Account {
     @Transient lateinit var password: String
     lateinit var fullName: String
     lateinit var gender: Gender
-    var age: Int = 0
+    lateinit var birthday: String
     lateinit var idCard: String
     lateinit var role: Role
     val createAt = System.currentTimeMillis()
@@ -58,6 +58,5 @@ class Account {
         val repo = Mobilization.Store.getRepository(Account::class.java)
         repo.update(this, true)
     }
-
 
 }

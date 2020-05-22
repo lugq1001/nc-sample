@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/container"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.LaunchActivity">
+    tools:context=".ui.main.LaunchActivity">
 
     <ProgressBar
         android:id="@+id/iProgress"
-        style="@style/StyleProgress" />
+        style="@style/StyleProgress"
+        android:indeterminateTint="@android:color/white" />
 
-    <TextView
-        android:id="@+id/iTipsText"
-        style="@style/TextTitle"
-        android:layout_marginTop="@dimen/spacing_v_2"
-        android:text="@string/launch_check_tips"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>

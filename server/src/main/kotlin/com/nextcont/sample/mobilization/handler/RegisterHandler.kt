@@ -43,7 +43,7 @@ class RegisterHandler: Handler() {
         account.password = params.password
         account.fullName = params.fullName
         account.gender = Account.Gender.from(params.gender)
-        account.age = params.age
+        account.birthday = params.birthday
         account.idCard = params.idCard
         account.role = Account.Role.from(params.role)
         logger.info("用户注册: $params")
@@ -57,7 +57,7 @@ class RegisterHandler: Handler() {
         val password: String,
         val fullName: String,
         val gender: Int,
-        val age: Int,
+        val birthday: String,
         val idCard: String,
         val role: Int
     )

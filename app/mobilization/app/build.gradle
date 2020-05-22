@@ -11,7 +11,7 @@ android {
         applicationId "com.nextcont.mobilization"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 1
+        versionCode 89
         versionName "1.0.0"
 
     }
@@ -69,5 +69,7 @@ dependencies {
 
 
     implementation 'com.google.code.gson:gson:2.8.6'
+
+
 
 }

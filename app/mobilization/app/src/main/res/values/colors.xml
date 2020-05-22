@@ -13,6 +13,8 @@
 
     <color name="container">#FBFBFB</color>
 
+    <color name="focus">#ffffff</color>
+    <color name="focusLose">#7A7A7A</color>
 
     <color name="danger">#DA4F49</color>
     <color name="warning">#FAA732</color>
@@ -20,5 +22,6 @@
 
     <color name="split">#b2bec3</color>
 
+    <color name="bgLoginEdit">#1A000000</color>
 
 </resources>
