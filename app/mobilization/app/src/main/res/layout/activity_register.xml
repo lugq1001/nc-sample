@@ -41,13 +41,11 @@
 
 
     <Button
-        android:id="@+id/iFaceButton"
+        android:id="@+id/iRegisterButton"
         style="@style/Button"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
         android:layout_marginTop="@dimen/spacing_v_4"
-        android:background="@drawable/bg_btn_register"
-        android:text="@string/app_name"
-        android:textColor="@color/primaryLight" />
+        android:layout_marginStart="@dimen/spacing_h_2"
+        android:layout_marginEnd="@dimen/spacing_h_2"
+        android:text="@string/title_register" />
 
 </LinearLayout>

@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.nextcont.mobilization.model.Account
-import com.nextcont.mobilization.ui.fragment.AccountFragment
 import com.nextcont.mobilization.ui.fragment.EvaluationFragment
 import com.nextcont.mobilization.ui.fragment.UsersFragment
 import com.nextcont.mobilization.util.Util
@@ -38,15 +37,7 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        Account.user?.let {
-            if (it.isAdmin) {
-                fragments = listOf(EvaluationFragment(), UsersFragment(), AccountFragment())
-                titles = listOf("训练考核", "预备役", "我")
-            } else {
-                fragments = listOf(EvaluationFragment(), AccountFragment())
-                titles = listOf("训练考核", "我")
-            }
-        }
+
 
 
         iTab = findViewById(R.id.iTab)
@@ -54,8 +45,8 @@ class DashboardActivity : AppCompatActivity() {
         iTipsText = findViewById(R.id.iTipsText)
 
 
-        iTab.addTab(iTab.newTab().setIcon(R.mipmap.ic_run))
-        iTab.addTab(iTab.newTab().setIcon(R.mipmap.ic_users))
+        iTab.addTab(iTab.newTab().setIcon(R.mipmap.ic_trains))
+        iTab.addTab(iTab.newTab().setIcon(R.mipmap.ic_trains))
         iTab.addTab(iTab.newTab().setIcon(R.mipmap.ic_user))
 
 

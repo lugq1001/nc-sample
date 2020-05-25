@@ -1,4 +1,4 @@
-package com.nextcont.mobilization.ui.fragment
+package com.nextcont.mobilization.ui.me
 
 import android.app.ProgressDialog
 import android.os.Bundle
@@ -18,10 +18,10 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 
-class AccountFragment : Fragment() {
+class MeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_account, container, false)
+        val view = inflater.inflate(R.layout.fragment_me, container, false)
         Account.user?.let { u ->
             view.findViewById<TextView>(R.id.iNameText).text = u.fullName
             view.findViewById<TextView>(R.id.iAgeText).text = "${u.age} 岁"

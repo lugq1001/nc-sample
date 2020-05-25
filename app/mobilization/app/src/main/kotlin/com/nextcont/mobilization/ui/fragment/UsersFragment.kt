@@ -27,8 +27,8 @@ class UsersFragment : Fragment() {
     private var users = mutableListOf<User>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_users, container, false)
-        iRecycler = view.findViewById(R.id.iRecycler)
+        val view = inflater.inflate(R.layout.fragment_trains, container, false)
+        //iRecycler = view.findViewById(R.id.iRecycler)
         iProgress = view.findViewById(R.id.iProgress)
 
         activity?.let { act ->

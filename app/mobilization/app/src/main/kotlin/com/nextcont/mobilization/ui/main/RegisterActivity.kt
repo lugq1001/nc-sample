@@ -22,6 +22,8 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var iRoleButton: Button
     private lateinit var iGenderButton: Button
 
+    private val acceptString = "abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -35,21 +37,21 @@ class RegisterActivity : AppCompatActivity() {
         iUserNameRow.findViewById<TextView>(R.id.iTitleText).text = getString(R.string.login_username)
         iUsernameEdit = iUserNameRow.findViewById(R.id.iInputEdit)
         iUsernameEdit.hint = getString(R.string.register_username_hint)
-        iUsernameEdit.keyListener = DigitsKeyListener.getInstance("abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        iUsernameEdit.keyListener = DigitsKeyListener.getInstance(acceptString)
 
         val iPasswordRow = findViewById<LinearLayout>(R.id.iPasswordRow)
         iPasswordRow.findViewById<TextView>(R.id.iTitleText).text = getString(R.string.login_password)
         iPasswordEdit = iPasswordRow.findViewById(R.id.iInputEdit)
         iPasswordEdit.hint = getString(R.string.register_password_hint)
         iPasswordEdit.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD or InputType.TYPE_CLASS_TEXT
-        iPasswordEdit.keyListener = DigitsKeyListener.getInstance("abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        iPasswordEdit.keyListener = DigitsKeyListener.getInstance(acceptString)
 
         val iPassword2Row = findViewById<LinearLayout>(R.id.iPassword2Row)
         iPassword2Row.findViewById<TextView>(R.id.iTitleText).text = ""
         iPassword2Edit = iPassword2Row.findViewById(R.id.iInputEdit)
         iPassword2Edit.hint = getString(R.string.register_password_confirm)
         iPassword2Edit.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD or InputType.TYPE_CLASS_TEXT
-        iPassword2Edit.keyListener = DigitsKeyListener.getInstance("abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        iPassword2Edit.keyListener = DigitsKeyListener.getInstance(acceptString)
 
 
         val iFullNameRow = findViewById<LinearLayout>(R.id.iFullNameRow)

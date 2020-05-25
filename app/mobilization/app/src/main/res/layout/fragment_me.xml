@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
+    android:background="@color/container"
     android:orientation="vertical"
     tools:context=".ui.fragment.AccountFragment">
 
@@ -81,7 +82,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@mipmap/ic_secure"
+            android:src="@mipmap/ic_user"
             android:contentDescription="@null" />
 
         <TextView

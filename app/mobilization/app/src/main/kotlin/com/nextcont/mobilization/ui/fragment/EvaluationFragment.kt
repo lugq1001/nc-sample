@@ -35,8 +35,8 @@ class EvaluationFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_evaluation, container, false)
-        iRecycler = view.findViewById(R.id.iRecycler)
+        val view = inflater.inflate(R.layout.fragment_news, container, false)
+        //iRecycler = view.findViewById(R.id.iRecycler)
         iProgress = view.findViewById(R.id.iProgress)
 
         activity?.let { act ->
