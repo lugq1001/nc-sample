@@ -25,4 +25,15 @@
     <string name="register_full_name">姓名</string>
     <string name="register_id_card">身份证</string>
 
+    <string name="main_tab_news">资讯</string>
+    <string name="main_tab_trains">训练</string>
+    <string name="main_tab_chat">通讯</string>
+    <string name="main_tab_assess">考核</string>
+    <string name="main_tab_me">我</string>
+
+    <string name="me_logout">退出登录</string>
+    <string name="me_secure_tips">安全连接已建立，由NextCont提供技术支持。</string>
+
+    <string name="title_about">关于</string>
+
 </resources>

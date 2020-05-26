@@ -36,45 +36,4 @@ class LaunchActivity : AppCompatActivity() {
         }, 1500)
 
     }
-
-    private fun uploadDevice() {
-        val deviceName = Settings.Secure.getString(contentResolver, "bluetooth_name")
-        val fingerprint = android.os.Build.FINGERPRINT
-
-//        MobApi.deviceRegister(deviceName, fingerprint)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({ resp ->
-//
-//                if (resp.disabled) {
-//                    DialogUtil.showAlert(this, "该应用已失效") {
-//                        findViewById<ProgressBar>(R.id.iProgress).visibility = GONE
-//                        findViewById<TextView>(R.id.iTipsText).visibility = GONE
-//                    }
-//                    return@subscribe
-//                }
-//
-//                Account.deviceId = resp.deviceId
-//
-//                resp.user?.let { user ->
-//                    // 已登录
-//                    if (resp.expired) {
-//                        DialogUtil.showAlert(this, "登录已过期", action = {
-//                            startActivity(Intent(this, LoginActivity::class.java))
-//                        })
-//                    } else {
-//                        Account.user = user
-//                        startActivity(Intent(this, DashboardActivity::class.java))
-//                    }
-//
-//                }?: kotlin.run {
-//                    // 未登录
-//                    startActivity(Intent(this, LoginActivity::class.java))
-//                }
-//            }, { e ->
-//                DialogUtil.showAlert(this, e.localizedMessage) {
-//                    uploadDevice()
-//                }
-//            })
-    }
 }

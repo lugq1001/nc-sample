@@ -39,20 +39,16 @@ class MainActivity : AppCompatActivity() {
     )
 
     private val titles = listOf(
-        "资讯",
-        "训练",
-        "通讯",
-        "考核",
-        "我"
+        R.string.main_tab_news,
+        R.string.main_tab_trains,
+        R.string.main_tab_chat,
+        R.string.main_tab_assess,
+        R.string.main_tab_me
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-
-
 
         iTab = findViewById(R.id.iTab)
 
@@ -87,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getPageTitle(position: Int): CharSequence {
-            return titles[position]
+            return getString(titles[position])
         }
 
 

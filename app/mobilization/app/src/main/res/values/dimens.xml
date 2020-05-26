@@ -21,4 +21,6 @@
 
     <dimen name="split">1dp</dimen>
 
+    <dimen name="height_cell">48dp</dimen>
+
 </resources>

@@ -41,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
 
         iLoginButton.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         iRegisterButton.setOnClickListener {
