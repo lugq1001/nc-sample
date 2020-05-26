@@ -52,22 +52,22 @@ class UsersFragment : Fragment() {
         iRecycler.visibility = View.GONE
         iProgress.visibility = View.VISIBLE
         // 登录
-        MobApi.users()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ resp ->
-                users = resp.users.toMutableList()
-                iRecycler.visibility = View.VISIBLE
-                iProgress.visibility = View.GONE
-
-                iAdapter.users = users
-                iAdapter.notifyDataSetChanged()
-
-            }, { e ->
-                DialogUtil.showAlert(act, e.localizedMessage, action = {
-                    fetchData()
-                })
-            })
+//        MobApi.users()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({ resp ->
+//                users = resp.users.toMutableList()
+//                iRecycler.visibility = View.VISIBLE
+//                iProgress.visibility = View.GONE
+//
+//                iAdapter.users = users
+//                iAdapter.notifyDataSetChanged()
+//
+//            }, { e ->
+//                DialogUtil.showAlert(act, e.localizedMessage, action = {
+//                    fetchData()
+//                })
+//            })
     }
 
     // ① 创建Adapter

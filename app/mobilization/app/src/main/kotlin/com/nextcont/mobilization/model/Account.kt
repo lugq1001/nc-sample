@@ -1,9 +1,11 @@
 package com.nextcont.mobilization.model
 
 import android.content.Context
-import com.google.gson.Gson
 import com.nextcont.mobilization.MobApp
 import com.nextcont.mobilization.util.Util
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+
 
 class Account {
 
@@ -20,9 +22,11 @@ class Account {
         var user: User? = null
 
 
-        fun load(): Account {
+        fun load(): Account? {
             val json = MobApp.sp.getString(STORE_NAME, null) ?: return Account()
-            return Gson().fromJson(json, Account::class.java)
+            val ms = Moshi.Builder().build()
+            val jsonAdapter: JsonAdapter<Account> = ms.adapter(Account::class.java)
+            return jsonAdapter.fromJson(json)
         }
 
         fun currentNetwork(context: Context): NetworkType {
@@ -41,7 +45,9 @@ class Account {
 
     fun save() {
         val editor = MobApp.sp.edit()
-        val json = Gson().toJson(this)
+        val ms = Moshi.Builder().build()
+        val jsonAdapter: JsonAdapter<Account> = ms.adapter(Account::class.java)
+        val json = jsonAdapter.toJson(this)
         editor.putString(STORE_NAME, json)
         editor.apply()
     }

@@ -27,9 +27,9 @@ class BindActivity : AppCompatActivity() {
 
             val type = Account.currentNetwork(this)
             val account = Account.load()
-            account.networkType = type
-            account.login = true
-            account.save()
+            account?.networkType = type
+            account?.login = true
+            account?.save()
 
             startActivity(Intent(this, DashboardActivity::class.java))
             finish()

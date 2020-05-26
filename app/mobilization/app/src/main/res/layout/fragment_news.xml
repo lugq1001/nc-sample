@@ -1,12 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.EvaluationFragment">
 
-    <TextView android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="news"/>
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <com.zhpan.bannerview.BannerViewPager
+            android:id="@+id/iBanner"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginBottom="@dimen/spacing_v_4" />
+
+        <include
+            android:id="@+id/iNewsItem1"
+            layout="@layout/item_news" />
+
+        <include
+            android:id="@+id/iNewsItem2"
+            layout="@layout/item_news" />
+
+        <include
+            android:id="@+id/iNewsItem3"
+            layout="@layout/item_news" />
+
+        <include
+            android:id="@+id/iNewsItem4"
+            layout="@layout/item_news" />
+
+        <include
+            android:id="@+id/iNewsItem5"
+            layout="@layout/item_news" />
+
+        <include
+            android:id="@+id/iNewsItem6"
+            layout="@layout/item_news" />
+
+        <include
+            android:id="@+id/iNewsItem7"
+            layout="@layout/item_news" />
+
+        <include
+            android:id="@+id/iNewsItem8"
+            layout="@layout/item_news" />
+
+        <include
+            android:id="@+id/iNewsItem9"
+            layout="@layout/item_news" />
+
+        <include
+            android:id="@+id/iNewsItem10"
+            layout="@layout/item_news" />
+
+    </LinearLayout>
+
+
+</ScrollView>

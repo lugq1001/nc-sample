@@ -62,22 +62,22 @@ class EvaluationFragment : Fragment() {
         iRecycler.visibility = GONE
         iProgress.visibility = VISIBLE
         // 登录
-        MobApi.evaluations()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ resp ->
-                evaluations = resp.evaluations.toMutableList()
-                iRecycler.visibility = VISIBLE
-                iProgress.visibility = GONE
-
-                iAdapter.evaluations = evaluations
-                iAdapter.notifyDataSetChanged()
-
-            }, { e ->
-                DialogUtil.showAlert(act, e.localizedMessage, action = {
-                    fetchData()
-                })
-            })
+//        MobApi.evaluations()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({ resp ->
+//                evaluations = resp.evaluations.toMutableList()
+//                iRecycler.visibility = VISIBLE
+//                iProgress.visibility = GONE
+//
+//                iAdapter.evaluations = evaluations
+//                iAdapter.notifyDataSetChanged()
+//
+//            }, { e ->
+//                DialogUtil.showAlert(act, e.localizedMessage, action = {
+//                    fetchData()
+//                })
+//            })
     }
 
     private fun modifyData(eva: Evaluation) {

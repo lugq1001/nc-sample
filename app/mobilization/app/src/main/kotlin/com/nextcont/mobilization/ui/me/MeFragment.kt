@@ -44,20 +44,20 @@ class MeFragment : Fragment() {
         val pd = ProgressDialog(act)
         pd.show()
 
-        MobApi.logout(Account.deviceId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                pd.dismiss()
-                Account.deviceId = ""
-                Account.user = null
-                act.finish()
-            }, { e ->
-                pd.dismiss()
-                DialogUtil.showAlert(act, e.localizedMessage, action = {
-
-                })
-            })
+//        MobApi.logout(Account.deviceId)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                pd.dismiss()
+//                Account.deviceId = ""
+//                Account.user = null
+//                act.finish()
+//            }, { e ->
+//                pd.dismiss()
+//                DialogUtil.showAlert(act, e.localizedMessage, action = {
+//
+//                })
+//            })
     }
 
     private fun disable() {
@@ -65,20 +65,20 @@ class MeFragment : Fragment() {
         DialogUtil.showAlert(act, "停用后该应用将失效。(30秒后恢复，以便测试)", action = {
             val pd = ProgressDialog(act)
             pd.show()
-            MobApi.disable(Account.deviceId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    pd.dismiss()
-                    Account.deviceId = ""
-                    Account.user = null
-                    act.finish()
-                }, { e ->
-                    pd.dismiss()
-                    DialogUtil.showAlert(act, e.localizedMessage, action = {
-
-                    })
-                })
+//            MobApi.disable(Account.deviceId)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({
+//                    pd.dismiss()
+//                    Account.deviceId = ""
+//                    Account.user = null
+//                    act.finish()
+//                }, { e ->
+//                    pd.dismiss()
+//                    DialogUtil.showAlert(act, e.localizedMessage, action = {
+//
+//                    })
+//                })
         })
     }
 

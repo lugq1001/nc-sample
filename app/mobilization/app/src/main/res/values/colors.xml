@@ -11,7 +11,7 @@
 
     <color name="disable">#EFF3F8</color>
 
-    <color name="container">#FBFBFB</color>
+    <color name="container">#dfe4ea</color>
 
     <color name="focus">#ffffff</color>
     <color name="focusLose">#7A7A7A</color>
@@ -23,5 +23,7 @@
     <color name="split">#b2bec3</color>
 
     <color name="bgLoginEdit">#1A000000</color>
+
+    <color name="layerBlack">#b3000000</color>
 
 </resources>
