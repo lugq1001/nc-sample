@@ -67,6 +67,17 @@
         <item name="android:gravity">start|center_vertical</item>
     </style>
 
+    <style name="Icon">
+        <item name="android:layout_width">21dp</item>
+        <item name="android:layout_height">21dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="IconMini" parent="Icon">
+        <item name="android:layout_width">17dp</item>
+        <item name="android:layout_height">17dp</item>
+    </style>
+
     <style name="FormRow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item>

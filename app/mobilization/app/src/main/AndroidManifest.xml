@@ -3,8 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.nextcont.mobilization">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--允许程序打开网络套接字-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--允许程序设置内置sd卡的写权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--允许程序获取网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--允许程序访问WiFi网络信息-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--允许程序读写手机状态和身份-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!--定位-->
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--用于申请获取蓝牙信息进行室内定位-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
 
     <application
         android:name=".MobApp"
@@ -26,7 +48,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.AboutActivity"
+            android:name=".ui.me.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.MainActivity"
@@ -46,6 +68,16 @@
         <activity
             android:name=".ui.BindActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.NoticeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.CheckInActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="1a54fb41eacbc85a49ab42f38005dac6" />
+
+
     </application>
 
 </manifest>

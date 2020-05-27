@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -75,6 +75,7 @@
                         android:layout_marginTop="@dimen/spacing_v_1"
                         android:text="@string/app_name" />
 
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -84,45 +85,85 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/iAboutView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_v_4"
-            android:background="@drawable/bg_item"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/spacing_v_2"
+            android:layout_marginBottom="@dimen/spacing_v_3"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
-            <View style="@style/SplitHMini" />
+            <ImageView
+                style="@style/IconMini"
+                android:contentDescription="@null"
+                android:src="@mipmap/ic_secure" />
 
             <TextView
-                style="@style/TextTitle"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_cell"
-                android:layout_marginStart="@dimen/spacing_h_2"
-                android:layout_marginEnd="@dimen/spacing_h_2"
-                android:gravity="center_vertical"
-                android:text="@string/title_about" />
+                style="@style/TextTips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_0"
+                android:text="@string/me_secure_tips"
+                android:textColor="@color/success" />
 
-            <View style="@style/SplitHMini" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/iLogoutView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_item"
+            android:layout_marginTop="@dimen/spacing_v_2"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/TextTitle"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_cell"
-                android:layout_marginStart="@dimen/spacing_h_2"
-                android:layout_marginEnd="@dimen/spacing_h_2"
-                android:gravity="center_vertical"
-                android:text="@string/me_logout"
-                android:textColor="@color/danger"
-                android:textStyle="bold" />
+            <View style="@style/SplitHMini" />
+
+            <!--打卡-->
+            <include
+                android:id="@+id/iCheckInView"
+                layout="@layout/item_me" />
+
+            <View style="@style/SplitHMini" />
+
+            <!--通知-->
+            <include
+                android:id="@+id/iNoticeView"
+                layout="@layout/item_me" />
+
+            <View style="@style/SplitHMini" />
+
+            <View
+                style="@style/SplitHMini"
+                android:layout_marginTop="@dimen/spacing_v_4" />
+
+            <!--问题反馈-->
+            <include
+                android:id="@+id/iFeedbackView"
+                layout="@layout/item_me" />
+
+            <View style="@style/SplitHMini" />
+
+            <!--联系我们-->
+            <include
+                android:id="@+id/iContactView"
+                layout="@layout/item_me" />
+
+            <View style="@style/SplitHMini" />
+
+            <!--关于-->
+            <include
+                android:id="@+id/iAboutView"
+                layout="@layout/item_me" />
+
+            <View style="@style/SplitHMini" />
+
+            <View
+                style="@style/SplitHMini"
+                android:layout_marginTop="@dimen/spacing_v_4" />
+
+            <!--退出登录-->
+            <include
+                android:id="@+id/iLogoutView"
+                layout="@layout/item_me" />
 
             <View style="@style/SplitHMini" />
 
@@ -131,30 +172,5 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/spacing_v_3"
-        android:gravity="center"
-        android:orientation="horizontal"
-        tools:ignore="UseCompoundDrawables">
 
-        <ImageView
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:contentDescription="@null"
-            android:src="@mipmap/ic_secure" />
-
-        <TextView
-            style="@style/TextTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_h_0"
-            android:text="@string/me_secure_tips"
-            android:textColor="@color/success" />
-
-
-    </LinearLayout>
-
-</RelativeLayout>
+</ScrollView>
