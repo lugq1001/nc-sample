@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context=".ui.assess.AssessActivity">
+
+    <TextView
+        android:id="@+id/iIndexText"
+        style="@style/TextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_v_4"
+        android:gravity="center"
+        android:text="1 / 10"
+        android:textSize="@dimen/text_size_large" />
+
+    <TextView
+        android:id="@+id/iTitleText"
+        style="@style/TextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_h_3"
+        android:maxLines="5"
+        android:text="啊撒打算打所大阿斯打算的撒大所阿斯打算的撒啊阿三的撒的撒asdasd啊撒打算打所阿斯打算的撒"
+        android:textSize="@dimen/text_size_banner"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/spacing_h_3"
+        android:layout_marginEnd="@dimen/spacing_h_3"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/iAButton"
+            style="@style/TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="A asd "
+            android:textSize="@dimen/text_size_banner" />
+
+        <Button
+            android:id="@+id/iBButton"
+            style="@style/TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="A asd "
+            android:textSize="@dimen/text_size_banner" />
+
+        <Button
+            android:id="@+id/iCButton"
+            style="@style/TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="A asd "
+            android:textSize="@dimen/text_size_banner" />
+
+        <Button
+            android:id="@+id/iDButton"
+            style="@style/TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="A asd "
+            android:textSize="@dimen/text_size_banner" />
+
+    </LinearLayout>
+</LinearLayout>

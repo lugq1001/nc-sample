@@ -1,12 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/container"
     tools:context=".ui.fragment.EvaluationFragment">
 
-    <TextView android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="assess"/>
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_h_2"
+            android:background="@drawable/bg_item_border"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryLight">
+
+                <TextView
+                    style="@style/TextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacing_h_1"
+                    android:text="军事理论考核"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_large" />
+
+            </LinearLayout>
+
+            <View style="@style/SplitHMini" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="考核时间" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_2"
+                android:text="2020年5月1日 至 2020年11月1日" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_3"
+                android:text="总分" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="100" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_3"
+                android:text="备注" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="需要人脸识别验证身份"
+                android:textColor="@color/warning" />
+
+            <View
+                style="@style/SplitHMini"
+                android:layout_marginTop="@dimen/spacing_v_2" />
+
+            <Button
+                android:id="@+id/iStartButton"
+                style="@style/TextButton"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:layout_marginBottom="@dimen/spacing_v_1"
+                android:gravity="center"
+                android:text="开始考核" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_h_2"
+            android:layout_marginEnd="@dimen/spacing_h_2"
+            android:layout_marginBottom="@dimen/spacing_h_2"
+            android:background="@drawable/bg_item_border"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/disable">
+
+                <TextView
+                    style="@style/TextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacing_h_1"
+                    android:text="国防基础理论考核"
+                    android:textColor="@color/textLight"
+                    android:textSize="@dimen/text_size_large" />
+
+            </LinearLayout>
+
+            <View style="@style/SplitHMini" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_2"
+                android:text="考核时间" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="2020年1月1日 至 2020年6月1日" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_3"
+                android:text="总分" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="100" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_3"
+                android:text="备注" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="-"
+                android:textColor="@color/danger" />
+
+            <View
+                style="@style/SplitHMini"
+                android:layout_marginTop="@dimen/spacing_v_2" />
+
+            <Button
+                style="@style/TextButton"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:layout_marginBottom="@dimen/spacing_v_1"
+                android:enabled="false"
+                android:gravity="center"
+                android:text="已结束" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>
