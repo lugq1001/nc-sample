@@ -3,6 +3,7 @@ package com.nextcont.mobilization
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.nextcont.mobilization.service.LocationService
 import timber.log.Timber
 
 class MobApp: Application() {
@@ -25,9 +26,9 @@ class MobApp: Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+
+        LocationService.init(this)
     }
-
-
 
 //    不透明 100% FF
 //    95% F2

@@ -5,6 +5,7 @@
     <string name="app_confirm">确定</string>
     <string name="app_cancel">取消</string>
     <string name="app_edit">编辑</string>
+    <string name="app_data_none">没有相关数据</string>
 
     <string name="launch_check_tips">正在检查设备环境</string>
 
@@ -35,6 +36,12 @@
     <string name="me_secure_tips">安全连接已建立，由NextCont提供技术支持。</string>
 
     <string name="title_check_in">打卡</string>
+    <string name="check_in_record">查看打卡记录</string>
+    <string name="check_in_allow_tips">您当前处于打卡区域内</string>
+    <string name="check_in_success">打卡成功</string>
+    <string name="check_in_expired">今日已打卡</string>
+
+    <string name="title_check_in_record">打卡记录</string>
 
     <string name="title_notice">通知公告</string>
 

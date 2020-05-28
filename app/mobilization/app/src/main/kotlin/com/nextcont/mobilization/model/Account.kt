@@ -9,6 +9,7 @@ import com.squareup.moshi.Moshi
 
 class Account {
 
+    var username: String? = null
     var login = false
     var disableTime = 0L
     var networkType: NetworkType? = null
