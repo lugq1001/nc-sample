@@ -54,50 +54,44 @@ android {
 }
 
 dependencies {
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'com.google.android.material:material:1.1.0'
-
     implementation 'com.amap.api:3dmap:7.4.0'
     implementation 'com.amap.api:location:4.9.0'
-
     implementation 'io.reactivex.rxjava3:rxjava:3.0.3'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-
     /**
-     * Logger
-     * https://github.com/JakeWharton/timber
+     *  Logger
+     *  https://github.com/JakeWharton/timber
      */
     implementation 'com.jakewharton.timber:timber:4.7.1'
-
     /**
-     * Image Loader
-     * https://github.com/bumptech/glide
+     *  Image Loader
+     *  https://github.com/bumptech/glide
      */
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
-
     /**
-     * Network
-     * https://github.com/kittinunf/fuel
+     *  Network
+     *  https://github.com/kittinunf/fuel
      */
     implementation 'com.github.kittinunf.fuel:fuel:2.2.2'
-
     implementation 'com.squareup.moshi:moshi:1.9.2'
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.9.2'
-
     /**
-     * Banner
-     * https://github.com/zhpanvip/BannerViewPager
+     *  Banner
+     *  https://github.com/zhpanvip/BannerViewPager
      */
     implementation 'com.github.zhpanvip:BannerViewPager:3.1.2'
-
     /**
-     * Brvah
-     * https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+     *  Brvah
+     *  https://github.com/CymChad/BaseRecyclerViewAdapterHelper
      */
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
+    implementation files('libs/ast.jar')
+    implementation files('libs/baidu_license.jar')
+    implementation files('libs/FaceSDK.jar')
 }
