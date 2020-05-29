@@ -24,6 +24,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -65,7 +66,7 @@ public class FaceLivenessActivity extends Activity implements
     protected FrameLayout mFrameLayout;
     protected SurfaceView mSurfaceView;
     protected SurfaceHolder mSurfaceHolder;
-    protected ImageView mCloseView;
+    protected Button mCloseView;
     protected ImageView mSoundView;
     protected ImageView mSuccessView;
     protected TextView mTipsTopView;
@@ -142,7 +143,7 @@ public class FaceLivenessActivity extends Activity implements
         });
 
         mFaceDetectRoundView = (FaceDetectRoundView) mRootView.findViewById(R.id.liveness_face_round);
-        mCloseView = (ImageView) mRootView.findViewById(R.id.liveness_close);
+        mCloseView = (Button) mRootView.findViewById(R.id.liveness_close);
         mSoundView = (ImageView) mRootView.findViewById(R.id.liveness_sound);
         mSoundView.setImageResource(mIsEnableSound ?
                 R.mipmap.ic_enable_sound_ext : R.mipmap.ic_disable_sound_ext);
