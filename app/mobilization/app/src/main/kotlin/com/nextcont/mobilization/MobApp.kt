@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.baidu.idl.face.platform.FaceEnvironment
 import com.baidu.idl.face.platform.FaceSDKManager
+import com.baidu.idl.face.platform.LivenessTypeEnum
 import com.nextcont.mobilization.service.LocationService
 import timber.log.Timber
 
@@ -30,9 +31,11 @@ class MobApp: Application() {
         }
 
         LocationService.init(this)
+        initFaceSDK()
+    }
 
-
-        // 为了android和ios 区分授权，appId=appname_face_android ,其中appname为申请sdk时的应用名
+    private fun initFaceSDK() {
+// 为了android和ios 区分授权，appId=appname_face_android ,其中appname为申请sdk时的应用名
         // 应用上下文
         // 申请License取得的APPID
         // assets目录下License文件名
@@ -41,8 +44,12 @@ class MobApp: Application() {
         val config = FaceSDKManager.getInstance().faceConfig
         // SDK初始化已经设置完默认参数（推荐参数），您也根据实际需求进行数值调整
         // SDK初始化已经设置完默认参数（推荐参数），您也根据实际需求进行数值调整
-//        config.setLivenessTypeList(ExampleApplication.livenessList)
-//        config.setLivenessRandom(ExampleApplication.isLivenessRandom)
+        config.setLivenessTypeList(listOf(
+            LivenessTypeEnum.HeadLeftOrRight,
+            LivenessTypeEnum.Eye,
+            LivenessTypeEnum.Mouth
+        ))
+        config.setLivenessRandom(true)
         config.setBlurnessValue(FaceEnvironment.VALUE_BLURNESS)
         config.setBrightnessValue(FaceEnvironment.VALUE_BRIGHTNESS)
         config.setCropFaceValue(FaceEnvironment.VALUE_CROP_FACE_SIZE)

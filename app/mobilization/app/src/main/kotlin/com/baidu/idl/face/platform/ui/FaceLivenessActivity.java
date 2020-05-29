@@ -114,7 +114,7 @@ public class FaceLivenessActivity extends Activity implements
 
         AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int vol = am.getStreamVolume(AudioManager.STREAM_MUSIC);
-        mIsEnableSound = vol > 0 ? mFaceConfig.isSound : false;
+        mIsEnableSound = vol > 0 && mFaceConfig.isSound;
 
         mRootView = this.findViewById(R.id.liveness_root_layout);
         mFrameLayout = (FrameLayout) mRootView.findViewById(R.id.liveness_surface_layout);
@@ -416,8 +416,7 @@ public class FaceLivenessActivity extends Activity implements
     }
 
     @Override
-    public void onLivenessCompletion(FaceStatusEnum status, String message,
-                                     HashMap<String, String> base64ImageMap) {
+    public void onLivenessCompletion(FaceStatusEnum status, String message, HashMap<String, String> base64ImageMap) {
         if (mIsCompletion) {
             return;
         }

@@ -56,13 +56,18 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha01'
+    implementation 'androidx.core:core-ktx:1.3.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.amap.api:3dmap:7.4.0'
     implementation 'com.amap.api:location:4.9.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.3'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
+    implementation files('libs/ast.jar')
+    implementation files('libs/baidu_license.jar')
+    implementation files('libs/FaceSDK.jar')
+
     /**
      *  Logger
      *  https://github.com/JakeWharton/timber
@@ -91,7 +96,5 @@ dependencies {
      *  https://github.com/CymChad/BaseRecyclerViewAdapterHelper
      */
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
-    implementation files('libs/ast.jar')
-    implementation files('libs/baidu_license.jar')
-    implementation files('libs/FaceSDK.jar')
+
 }

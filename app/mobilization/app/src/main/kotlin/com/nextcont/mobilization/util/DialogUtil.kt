@@ -2,6 +2,7 @@ package com.nextcont.mobilization.util
 
 import android.app.AlertDialog
 import android.content.Context
+import androidx.annotation.StringRes
 import com.nextcont.mobilization.R
 
 object DialogUtil {
@@ -20,6 +21,23 @@ object DialogUtil {
                 }
             } // A null listener allows the button to dismiss the dialog and take no further action.
             .show()
+
+    }
+
+    fun showConfirm(context: Context, message: String?, confirm: String, action: (() -> Unit)? = null) {
+        AlertDialog.Builder(context)
+                .setTitle(context.getString(R.string.app_tips))
+                .setMessage(message)
+                .setPositiveButton(confirm) { dialog, _ ->
+                    dialog.dismiss()
+                    action?.let {
+                        it()
+                    }
+                }
+                .setNegativeButton(R.string.app_cancel) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
 
     }
 

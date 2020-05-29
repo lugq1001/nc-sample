@@ -64,12 +64,6 @@
             android:name=".ui.main.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.DashboardActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.BindActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.me.NoticeActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -83,7 +77,14 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.assess.FaceLivenessExpActivity"
+            android:name=".ui.face.FaceLivenessExpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.trains.TransActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.trains.TrainingActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

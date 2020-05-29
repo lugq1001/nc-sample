@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.me.CheckInActivity">
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/iMapView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View style="@style/SplitH" />
+
+    <TextView
+        style="@style/TextTips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_v_2"
+        android:gravity="center"
+        android:text="您当前处于训练区域内"
+        android:textColor="@color/primaryLight" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/iTimingText"
+            style="@style/TextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="00:33:32"
+            android:textColor="@color/text"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/spacing_h_2">
+
+            <Button
+                android:id="@+id/iPauseButton"
+                style="@style/Button"
+                android:layout_width="@dimen/size_training_btn"
+                android:layout_height="@dimen/size_training_btn"
+
+                android:background="@drawable/bg_trains_btn_pause"
+                android:text="暂停" />
+
+            <Button
+                android:id="@+id/iStartButton"
+                style="@style/Button"
+                android:layout_width="@dimen/size_training_btn"
+                android:layout_height="@dimen/size_training_btn"
+                android:layout_marginStart="@dimen/spacing_h_2"
+                android:layout_marginEnd="@dimen/spacing_h_2"
+                android:background="@drawable/bg_trains_btn_start"
+                android:text="开始" />
+
+            <Button
+                android:id="@+id/iStopButton"
+                style="@style/Button"
+                android:layout_width="@dimen/size_training_btn"
+                android:layout_height="@dimen/size_training_btn"
+                android:background="@drawable/bg_trains_btn_stop"
+                android:text="结束" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -36,6 +36,10 @@ class AssessActivity : AppCompatActivity() {
         iCButton = findViewById(R.id.iCButton)
         iDButton = findViewById(R.id.iDButton)
 
+        findViewById<Button>(R.id.iExitButton).setOnClickListener {
+            finish()
+        }
+
         iAButton.setOnClickListener {
             answer(0)
         }

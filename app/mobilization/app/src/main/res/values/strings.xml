@@ -4,6 +4,7 @@
     <string name="app_tips">系统提示</string>
     <string name="app_confirm">确定</string>
     <string name="app_cancel">取消</string>
+    <string name="app_exit">退出</string>
     <string name="app_edit">编辑</string>
     <string name="app_data_none">没有相关数据</string>
 
@@ -54,7 +55,7 @@
 
 
 
-
+    <!--  人脸识别  -->
     <string name="detect_no_face">未检测到人脸</string>
     <string name="detect_face_in">把脸移入框内</string>
     <string name="detect_zoom_in">手机拿近一点</string>

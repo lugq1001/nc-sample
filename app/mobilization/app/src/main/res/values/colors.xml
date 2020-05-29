@@ -25,5 +25,6 @@
     <color name="bgLoginEdit">#1A000000</color>
 
     <color name="layerBlack">#b3000000</color>
+    <color name="layerBlackLight">#80000000</color>
 
 </resources>

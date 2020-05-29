@@ -8,9 +8,10 @@ buildscript {
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
         maven { url 'https://jitpack.io' }
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -25,6 +26,7 @@ allprojects {
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
         maven { url 'https://jitpack.io' }
+        google()
 
 
     }

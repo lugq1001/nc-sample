@@ -50,7 +50,6 @@
             android:id="@+id/liveness_bottom_tips"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.36"
             android:gravity="center|top"
@@ -70,7 +69,7 @@
         android:id="@+id/liveness_sound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_margin="20dp"
         android:src="@mipmap/ic_enable_sound_ext"
         android:visibility="gone" />
@@ -85,6 +84,7 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_alignParentBottom="true">
 
         <LinearLayout

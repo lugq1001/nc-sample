@@ -32,8 +32,6 @@ class EvaluationFragment : Fragment() {
     private var iAdapter: EvaluationAdapter = EvaluationAdapter()
     private var evaluations = mutableListOf<Evaluation>()
 
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_news, container, false)
         //iRecycler = view.findViewById(R.id.iRecycler)
@@ -45,8 +43,6 @@ class EvaluationFragment : Fragment() {
             iRecycler.layoutManager = layoutManager
             iRecycler.adapter = iAdapter
         }
-
-
 
         return view
     }

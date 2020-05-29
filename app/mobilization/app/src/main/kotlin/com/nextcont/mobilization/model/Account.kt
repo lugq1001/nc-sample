@@ -2,7 +2,6 @@ package com.nextcont.mobilization.model
 
 import android.content.Context
 import com.nextcont.mobilization.MobApp
-import com.nextcont.mobilization.util.Util
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 
@@ -30,18 +29,6 @@ class Account {
             return jsonAdapter.fromJson(json)
         }
 
-        fun currentNetwork(context: Context): NetworkType {
-            if (Util.isConnectedMobile(context)) {
-                return NetworkType.Mobile
-            }
-            if (Util.isConnectedWifi(context)) {
-                return NetworkType.Wifi
-            }
-            if (Util.isAirplaneModeOn(context)) {
-                return NetworkType.Airplane
-            }
-            return NetworkType.Mobile
-        }
     }
 
     fun save() {
