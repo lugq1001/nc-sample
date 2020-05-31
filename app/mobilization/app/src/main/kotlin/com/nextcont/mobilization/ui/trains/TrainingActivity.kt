@@ -2,17 +2,17 @@ package com.nextcont.mobilization.ui.trains
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.os.SystemClock
+import android.view.View
 import android.widget.Button
+import android.widget.Chronometer
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.MapView
 import com.amap.api.maps.model.MyLocationStyle
 import com.nextcont.mobilization.R
-import com.nextcont.mobilization.model.CheckIn
 import com.nextcont.mobilization.model.Training
-import com.nextcont.mobilization.service.LocationService
 import com.nextcont.mobilization.util.DialogUtil
 import com.squareup.moshi.Moshi
 
@@ -28,6 +28,13 @@ class TrainingActivity : AppCompatActivity() {
     private lateinit var iStartButton: Button
     private lateinit var iPauseButton: Button
     private lateinit var iStopButton: Button
+
+    private lateinit var iTimingText: Chronometer
+
+    private var paused = false
+
+    private var timeDifference : Long = 0 // 记录下来的总时间
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +61,7 @@ class TrainingActivity : AppCompatActivity() {
             stopTraining()
         }
 
+        iTimingText = findViewById(R.id.iTimingText)
 
         iMapView = findViewById(R.id.iMapView)
         iMapView.onCreate(savedInstanceState)
@@ -68,6 +76,7 @@ class TrainingActivity : AppCompatActivity() {
 
         aMap.moveCamera(CameraUpdateFactory.zoomTo(16f))
 
+        initView()
     }
 
     override fun onResume() {
@@ -83,7 +92,6 @@ class TrainingActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         iMapView.onDestroy()
-
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
@@ -91,16 +99,52 @@ class TrainingActivity : AppCompatActivity() {
         iMapView.onSaveInstanceState(outState)
     }
 
+    private fun initView() {
+        iPauseButton.visibility = View.INVISIBLE
+        iStartButton.visibility = View.VISIBLE
+        iStopButton.visibility = View.INVISIBLE
+        iTimingText.visibility = View.INVISIBLE
+    }
+
     private fun startTraining() {
-        disableButton(iStartButton, iStartButton.isEnabled)
+        disableButton(iStartButton, true)
+        disableButton(iPauseButton, false)
+        disableButton(iStopButton, false)
+        iTimingText.visibility = View.VISIBLE
+        iStartButton.visibility = View.VISIBLE
+        iStopButton.visibility = View.VISIBLE
+        iPauseButton.visibility = View.VISIBLE
+
+        iTimingText.base = SystemClock.elapsedRealtime()
+        iTimingText.start()
+
     }
 
     private fun pauseTraining() {
-        disableButton(iPauseButton, iPauseButton.isEnabled)
+        paused = !paused
+        disableButton(iStartButton, true)
+        disableButton(iPauseButton, false)
+        disableButton(iStopButton, false)
+        iTimingText.visibility = View.VISIBLE
+        iStartButton.visibility = View.VISIBLE
+        iStopButton.visibility = View.VISIBLE
+        iPauseButton.visibility = View.VISIBLE
+        if (paused) {
+            iTimingText.stop()
+            timeDifference  = iTimingText.base - SystemClock.elapsedRealtime()
+            iPauseButton.text = "继续"
+        } else {
+            iPauseButton.text = "暂停"
+            iTimingText.base = SystemClock.elapsedRealtime() + timeDifference
+            iTimingText.start()
+        }
     }
 
     private fun stopTraining() {
-        disableButton(iStopButton, iStopButton.isEnabled)
+        DialogUtil.showConfirm(this, "是否完成当前训练？", "已完成", action = {
+            iTimingText.stop()
+            finish()
+        })
     }
 
     private fun disableButton(button: Button, disable: Boolean) {
@@ -119,5 +163,6 @@ class TrainingActivity : AppCompatActivity() {
         }
 
     }
+
 
 }
