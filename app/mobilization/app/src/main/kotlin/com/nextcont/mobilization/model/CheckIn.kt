@@ -19,7 +19,7 @@ data class CheckIn(
 
         private val STORE_KEY: String
             get() {
-                return "${Account.load()?.username}:CheckIn"
+                return "${User.load()?.id}:CheckIn"
             }
 
         fun load(): List<CheckIn> {
@@ -52,7 +52,6 @@ data class CheckIn(
         get() {
             return SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(time)
         }
-
 
 
     fun save() {

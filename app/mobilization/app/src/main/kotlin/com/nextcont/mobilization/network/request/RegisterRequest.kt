@@ -1,15 +1,15 @@
-package com.nextcont.mobilization.network.response
+package com.nextcont.mobilization.network.request
 
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class LoginResponse(
+data class RegisterRequest(
     val username: String,
     val password: String,
-    val birthday: String,
     val fullName: String,
-    val gender: String,
-    val id: String,
+    val gender: Int,
+    val birthday: String,
     val idCard: String,
-    val role: String
+    val role: Int
+
 )

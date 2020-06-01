@@ -18,6 +18,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/text_size_tab</item>
+    </style>
+
     <style name="StyleProgress">
         <item name="android:layout_width">@dimen/progress_size</item>
         <item name="android:layout_height">@dimen/progress_size</item>

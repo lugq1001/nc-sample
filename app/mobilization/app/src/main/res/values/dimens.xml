@@ -12,6 +12,7 @@
     <dimen name="spacing_h_2">20dp</dimen>
     <dimen name="spacing_h_3">32dp</dimen>
 
+    <dimen name="text_size_tab">12sp</dimen>
     <dimen name="text_size_small">13sp</dimen>
     <dimen name="text_size_middle">15sp</dimen>
     <dimen name="text_size_large">17sp</dimen>

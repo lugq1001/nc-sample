@@ -12,7 +12,7 @@ class Account {
 
     @Id lateinit var id: String
     lateinit var username: String
-    @Transient lateinit var password: String
+    lateinit var password: String
     lateinit var fullName: String
     lateinit var gender: Gender
     lateinit var birthday: String

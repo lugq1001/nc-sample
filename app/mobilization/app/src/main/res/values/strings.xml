@@ -6,6 +6,7 @@
     <string name="app_cancel">取消</string>
     <string name="app_exit">退出</string>
     <string name="app_edit">编辑</string>
+    <string name="app_choose">请选择</string>
     <string name="app_data_none">没有相关数据</string>
 
     <string name="launch_check_tips">正在检查设备环境</string>
@@ -28,9 +29,9 @@
     <string name="register_id_card">身份证</string>
 
     <string name="main_tab_news">资讯</string>
-    <string name="main_tab_trains">训练</string>
-    <string name="main_tab_chat">通讯</string>
-    <string name="main_tab_assess">考核</string>
+    <string name="main_tab_trains">训练评测</string>
+    <string name="main_tab_chat">通讯联络</string>
+    <string name="main_tab_assess">政治学习</string>
     <string name="main_tab_me">我</string>
 
     <string name="me_logout">退出登录</string>

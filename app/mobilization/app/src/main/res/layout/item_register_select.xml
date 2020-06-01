@@ -8,7 +8,7 @@
 
         <TextView
             android:id="@+id/iTitleText"
-            style="@style/TextTitle"
+            style="@style/TextTips"
             android:layout_width="78dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical|end"

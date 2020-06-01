@@ -9,7 +9,7 @@
 
         <TextView
             android:id="@+id/iTitleText"
-            style="@style/TextTitle"
+            style="@style/TextTips"
             android:layout_width="78dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical|end"
@@ -21,6 +21,7 @@
             android:layout_marginStart="@dimen/spacing_h_1"
             android:hint="@string/app_name"
             android:labelFor="@+id/iTitleText"
+            android:textStyle="bold"
             tools:ignore="Autofill" />
 
     </LinearLayout>

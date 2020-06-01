@@ -40,12 +40,24 @@
         layout="@layout/item_register_select" />
 
 
-    <Button
-        android:id="@+id/iRegisterButton"
-        style="@style/Button"
-        android:layout_marginTop="@dimen/spacing_v_4"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_h_2"
-        android:layout_marginEnd="@dimen/spacing_h_2"
-        android:text="@string/title_register" />
+        android:layout_marginTop="@dimen/spacing_v_4"
+        android:layout_marginEnd="@dimen/spacing_h_2">
+
+        <Button
+            android:id="@+id/iRegisterButton"
+            style="@style/Button"
+            android:text="@string/title_register" />
+
+        <ProgressBar
+            android:id="@+id/iProgress"
+            style="@style/StyleProgress"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
 
 </LinearLayout>
