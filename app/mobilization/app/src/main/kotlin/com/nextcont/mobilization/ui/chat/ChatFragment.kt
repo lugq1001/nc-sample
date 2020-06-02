@@ -5,13 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.nextcont.mobilization.R
+import com.nextcont.mobilization.ui.assess.AssessFragment
+import com.nextcont.mobilization.ui.me.MeFragment
+import com.nextcont.mobilization.ui.news.NewsFragment
+import com.nextcont.mobilization.ui.trains.TrainsFragment
 
 
 class ChatFragment : Fragment() {
 
+
+
+    private val fragments = listOf(
+        MeFragment(),
+        NewsFragment()
+    )
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_chat, container, false)
+
+
         return view
 
         //        val pd = ProgressDialog(act)
@@ -32,5 +48,6 @@ class ChatFragment : Fragment() {
 //                })
 //            })
     }
+
 
 }

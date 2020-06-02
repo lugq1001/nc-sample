@@ -32,7 +32,6 @@ class AssessFragment : Fragment() {
         intent.putExtra("assess", assess)
         act.startActivity(intent)
 
-
     }
 
 
