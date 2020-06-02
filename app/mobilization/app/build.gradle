@@ -59,14 +59,21 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.0-alpha01'
     implementation 'androidx.core:core-ktx:1.3.0'
     implementation 'com.google.android.material:material:1.1.0'
-    implementation 'com.amap.api:3dmap:7.4.0'
-    implementation 'com.amap.api:location:4.9.0'
+//    implementation 'com.amap.api:3dmap:7.4.0'
+//    implementation 'com.amap.api:location:4.9.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.3'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
     implementation files('libs/ast.jar')
     implementation files('libs/baidu_license.jar')
     implementation files('libs/FaceSDK.jar')
+
+    implementation files('libs/AMap3DMap_7.4.0_AMapSearch_7.3.0_AMapTrack_1.3.0_AMapLocation_4.9.0_20200426.jar')
+
+
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.11.4'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.11.4'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.11.4'
 
     /**
      *  Logger
@@ -78,6 +85,8 @@ dependencies {
      *  https://github.com/bumptech/glide
      */
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
     /**
      *  Network

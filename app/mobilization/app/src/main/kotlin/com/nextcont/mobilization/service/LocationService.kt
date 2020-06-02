@@ -1,6 +1,5 @@
 package com.nextcont.mobilization.service
 
-import android.content.Context
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
@@ -13,13 +12,19 @@ object LocationService : AMapLocationListener {
 
     //声明AMapLocationClient类对象
     private var client: AMapLocationClient? = null
-    private var latitude: Double = 0.0
-    private var longitude: Double = 0.0
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
     var address = ""
         private set
 
-    fun init(context: Context) {
+    private var protocol: IProtocol? = null
 
+    fun addDelegate(protocol: IProtocol) {
+        this.protocol = protocol
+    }
+
+    fun removeDelegate() {
+        protocol = null
     }
 
     fun start(purpose: AMapLocationClientOption.AMapLocationPurpose = AMapLocationClientOption.AMapLocationPurpose.SignIn) {
@@ -51,5 +56,11 @@ object LocationService : AMapLocationListener {
         latitude = loc?.latitude ?: 0.0
         longitude = loc?.longitude ?: 0.0
         address = loc?.address ?: ""
+
+        protocol?.onLocationChanged(latitude, longitude)
+    }
+
+    interface IProtocol {
+        fun onLocationChanged(latitude: Double, longitude: Double)
     }
 }

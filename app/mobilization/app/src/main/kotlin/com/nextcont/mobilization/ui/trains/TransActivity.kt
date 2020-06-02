@@ -28,6 +28,8 @@ class TransActivity : AppCompatActivity() {
     private lateinit var iNoDataText: TextView
     private lateinit var trainings: List<Training>
 
+    private var addition = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_trans)
@@ -40,6 +42,7 @@ class TransActivity : AppCompatActivity() {
             TrainsFragment.TRANS_TYPE_ADDITION -> {
                 title = "附加训练"
                 trainings = Training.addition()
+                addition = true
             }
         }
 
@@ -63,11 +66,16 @@ class TransActivity : AppCompatActivity() {
     private fun startTraining(position: Int) {
         val train = trainings[position]
         Timber.i("开始训练: $train")
-        val intent = Intent(this, TrainingActivity::class.java)
 
+        val intent = if (addition) {
+            Intent(this, Training2Activity::class.java)
+        } else {
+            Intent(this, TrainingActivity::class.java)
+        }
         val json = Moshi.Builder().build()
         val jsonAdapter = json.adapter(Training::class.java)
         intent.putExtra(KEY_TRAIN, jsonAdapter.toJson(train))
+
         startActivity(intent)
     }
 

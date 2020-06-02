@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+            android:id="@+id/iVideoView"
+            android:layout_width="match_parent"
+            android:layout_height="180dp" />
+
+        <View style="@style/SplitH" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_h_2"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="训练概述"
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="无需器械，低强度运动，锻炼心肺耐力" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_4"
+                android:text="训练周期"
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="长期 每日2次" />
+
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_4"
+                android:text="动作指导"
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="参考视频" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_4"
+                android:text="训练要求"
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="每次训练时间不少1分钟，使用App拍摄后上传视频，由工作人员审核是否完成训练要求。" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/iStartButton"
+        style="@style/ButtonBottom"
+        android:layout_alignParentBottom="true"
+        android:text="开始训练" />
+
+</RelativeLayout>

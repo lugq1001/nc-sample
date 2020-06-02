@@ -76,7 +76,7 @@ object MobApi {
                 val resp = adapter.fromJson(data)!!
                 when (resp.code) {
                     0 -> {
-                        return resp.data!!
+                        return resp.data ?: ""
                     }
                     else -> throw Exception(resp.message)
                 }

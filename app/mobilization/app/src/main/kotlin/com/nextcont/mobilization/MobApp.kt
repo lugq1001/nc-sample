@@ -30,7 +30,6 @@ class MobApp: Application() {
             Timber.plant(Timber.DebugTree())
         }
 
-        LocationService.init(this)
         initFaceSDK()
     }
 

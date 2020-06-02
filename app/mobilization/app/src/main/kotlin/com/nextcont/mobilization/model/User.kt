@@ -1,6 +1,9 @@
 package com.nextcont.mobilization.model
 
+import android.graphics.drawable.Drawable
+import androidx.core.content.ContextCompat
 import com.nextcont.mobilization.MobApp
+import com.nextcont.mobilization.R
 import com.nextcont.mobilization.network.response.LoginResponse
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
@@ -61,6 +64,20 @@ data class User(
             }
 
     }
+
+    val avatar: Drawable
+        get() {
+            return ContextCompat.getDrawable(
+                MobApp.Context, when (gender) {
+                    Gender.Male -> {
+                        R.mipmap.avatar_1
+                    }
+                    Gender.Female -> {
+                        R.mipmap.avatar_0
+                    }
+                }
+            )!!
+        }
 
     companion object {
 

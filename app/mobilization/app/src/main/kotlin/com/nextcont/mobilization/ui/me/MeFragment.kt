@@ -14,6 +14,7 @@ import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.nextcont.mobilization.R
+import com.nextcont.mobilization.model.User
 import timber.log.Timber
 
 
@@ -26,14 +27,6 @@ class MeFragment : Fragment() {
     }
 
     private fun initView(v: View) {
-//        Account.user?.let { u ->
-//            view.findViewById<TextView>(R.id.iNameText).text = u.fullName
-//            view.findViewById<TextView>(R.id.iAgeText).text = "${u.age} 岁"
-//            view.findViewById<TextView>(R.id.iJobText).text = u.job
-//            Glide.with(this)
-//                .load(u.avatar)
-//                .into(view.findViewById<ImageView>(R.id.iAvatar))
-//        }
 
         initCell(v, R.id.iCheckInView, R.string.title_check_in, R.mipmap.ic_check_in) { checkIn() }
         initCell(v, R.id.iNoticeView, R.string.title_notice, R.mipmap.ic_notice) { notice() }
@@ -41,6 +34,16 @@ class MeFragment : Fragment() {
         initCell(v, R.id.iContactView, R.string.title_contact_us, R.mipmap.ic_contact_us) { contact() }
         initCell(v, R.id.iAboutView, R.string.title_about, R.mipmap.ic_about) { about() }
         initCell(v, R.id.iLogoutView, R.string.me_logout, R.mipmap.ic_logout) { logout() }
+
+        User.load()?.let { u ->
+            v.findViewById<ImageView>(R.id.iAvatarImage).setImageDrawable(u.avatar)
+            v.findViewById<TextView>(R.id.iNameText).text = u.fullName
+            v.findViewById<TextView>(R.id.iBirthdayText).text = "${u.gender.string} ${u.birthday}"
+            v.findViewById<TextView>(R.id.iRoleText).text = u.role.string
+            v.findViewById<TextView>(R.id.iIdCardText).text = u.idCard
+        }
+
+
     }
 
     private fun initCell(v: View, @IdRes cellId: Int, @StringRes title: Int, @DrawableRes icon: Int, action: () -> Unit) {
@@ -91,7 +94,8 @@ class MeFragment : Fragment() {
 
     private fun logout() {
         Timber.i("退出登录")
-        val act = activity?: return
+        User.load()?.clear()
+        val act = activity ?: return
         act.finish()
     }
 
