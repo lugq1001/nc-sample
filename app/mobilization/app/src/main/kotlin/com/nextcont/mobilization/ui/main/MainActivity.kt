@@ -1,7 +1,6 @@
 package com.nextcont.mobilization.ui.main
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +15,6 @@ import com.nextcont.mobilization.R
 import com.nextcont.mobilization.service.LocationService
 import com.nextcont.mobilization.ui.assess.AssessFragment
 import com.nextcont.mobilization.ui.chat.ChatFragment
-import com.nextcont.mobilization.ui.face.FaceLivenessExpActivity
 import com.nextcont.mobilization.ui.me.MeFragment
 import com.nextcont.mobilization.ui.news.NewsFragment
 import com.nextcont.mobilization.ui.trains.TrainsFragment
@@ -30,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val REQ_CODE_LOCATION = 100
-        const val REQ_CODE_CAMERA = 101
     }
 
     private val fragments = listOf(
@@ -97,21 +94,11 @@ class MainActivity : AppCompatActivity() {
         LocationService.destroy()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == FaceLivenessExpActivity.CODE_SUCCESS) {
-            (fragments[3] as AssessFragment).enterAssess()
-        }
-    }
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (grantResults.isNotEmpty() && grantResults[0] == PERMISSION_GRANTED) {
             if (requestCode == REQ_CODE_LOCATION) {
                 LocationService.start()
-            }
-            if (requestCode == REQ_CODE_CAMERA) {
-                (fragments[3] as AssessFragment).checkFace()
             }
         }
     }

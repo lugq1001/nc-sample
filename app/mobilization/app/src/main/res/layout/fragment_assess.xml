@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/container"
-    tools:context=".ui.fragment.EvaluationFragment">
+    android:background="@color/container">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_h_2"
+            android:layout_margin="@dimen/spacing_h_1"
             android:background="@drawable/bg_item_border"
             android:orientation="vertical">
 
@@ -28,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_h_1"
-                    android:text="军事理论考核"
+                    android:text="军事理论知识30条"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_large" />
 
@@ -41,8 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_h_1"
-                android:layout_marginTop="@dimen/spacing_v_1"
-                android:text="考核时间" />
+                android:layout_marginTop="@dimen/spacing_v_3"
+                android:text="学习要求" />
 
             <TextView
                 style="@style/TextTips"
@@ -50,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_h_1"
                 android:layout_marginTop="@dimen/spacing_v_2"
-                android:text="2020年5月1日 至 2020年11月1日" />
+                android:text="熟练掌握知识点" />
 
             <TextView
                 style="@style/TextTitle"
@@ -58,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_h_1"
                 android:layout_marginTop="@dimen/spacing_v_3"
-                android:text="考核时长" />
+                android:text="需要考核" />
 
             <TextView
                 style="@style/TextTips"
@@ -66,7 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_h_1"
                 android:layout_marginTop="@dimen/spacing_v_1"
-                android:text="20分钟" />
+                android:text="需要"
+                android:textColor="@color/danger" />
 
             <TextView
                 style="@style/TextTitle"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_h_1"
                 android:layout_marginTop="@dimen/spacing_v_3"
-                android:text="备注" />
+                android:text="学习周期" />
 
             <TextView
                 style="@style/TextTips"
@@ -82,12 +82,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_h_1"
                 android:layout_marginTop="@dimen/spacing_v_1"
-                android:text="需要人脸识别验证身份"
-                android:textColor="@color/warning" />
+                android:text="2020年6月30日前学习完成、参加并通过考核" />
 
             <View
                 style="@style/SplitHMini"
-                android:layout_marginTop="@dimen/spacing_v_2" />
+                android:layout_marginTop="@dimen/spacing_v_3" />
 
             <Button
                 android:id="@+id/iStartButton"
@@ -96,31 +95,31 @@
                 android:layout_marginTop="@dimen/spacing_v_1"
                 android:layout_marginBottom="@dimen/spacing_v_1"
                 android:gravity="center"
-                android:text="开始考核" />
+                android:text="立刻学习" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_h_2"
-            android:layout_marginEnd="@dimen/spacing_h_2"
-            android:layout_marginBottom="@dimen/spacing_h_2"
+            android:layout_marginStart="@dimen/spacing_h_1"
+            android:layout_marginEnd="@dimen/spacing_h_1"
+            android:layout_marginBottom="@dimen/spacing_h_1"
             android:background="@drawable/bg_item_border"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/disable">
+                android:background="@color/primaryLight">
 
                 <TextView
                     style="@style/TextTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_h_1"
-                    android:text="国防基础理论考核"
-                    android:textColor="@color/textLight"
+                    android:text="国防知识：中国人民解放军史"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_large" />
 
             </LinearLayout>
@@ -132,16 +131,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_3"
+                android:text="学习要求" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
                 android:layout_marginTop="@dimen/spacing_v_2"
-                android:text="考核时间" />
-
-            <TextView
-                style="@style/TextTips"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_h_1"
-                android:layout_marginTop="@dimen/spacing_v_1"
-                android:text="2020年1月1日 至 2020年6月1日" />
+                android:text="通读、牢记" />
 
             <TextView
                 style="@style/TextTitle"
@@ -149,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_h_1"
                 android:layout_marginTop="@dimen/spacing_v_3"
-                android:text="考核时长" />
+                android:text="需要考核" />
 
             <TextView
                 style="@style/TextTips"
@@ -157,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_h_1"
                 android:layout_marginTop="@dimen/spacing_v_1"
-                android:text="40分钟" />
+                android:text="不需要" />
 
             <TextView
                 style="@style/TextTitle"
@@ -165,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_h_1"
                 android:layout_marginTop="@dimen/spacing_v_3"
-                android:text="备注" />
+                android:text="学习周期" />
 
             <TextView
                 style="@style/TextTips"
@@ -173,23 +172,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_h_1"
                 android:layout_marginTop="@dimen/spacing_v_1"
-                android:text="-"
-                android:textColor="@color/danger" />
+                android:text="-" />
 
             <View
                 style="@style/SplitHMini"
-                android:layout_marginTop="@dimen/spacing_v_2" />
+                android:layout_marginTop="@dimen/spacing_v_3" />
 
             <Button
+                android:id="@+id/iStartButton2"
                 style="@style/TextButton"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/spacing_v_1"
                 android:layout_marginBottom="@dimen/spacing_v_1"
-                android:enabled="false"
                 android:gravity="center"
-                android:text="已结束" />
+                android:text="立刻学习" />
 
         </LinearLayout>
+
 
     </LinearLayout>
 

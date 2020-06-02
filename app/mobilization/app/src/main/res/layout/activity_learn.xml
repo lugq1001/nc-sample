@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context=".ui.assess.AssessActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/iAssessButton">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/iTitleText"
+                style="@style/TextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_3"
+                android:layout_marginEnd="@dimen/spacing_h_1"
+                android:text="@string/app_name"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/iContentText"
+                style="@style/TextTips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_h_1"
+                android:layout_marginTop="@dimen/spacing_v_3"
+                android:layout_marginEnd="@dimen/spacing_h_1"
+                android:layout_marginBottom="@dimen/spacing_v_3"
+                android:text="@string/app_name"
+                android:textSize="@dimen/text_size_large" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/iAssessButton"
+        style="@style/ButtonBottom"
+        android:layout_alignParentBottom="true"
+        android:text="在线考核" />
+
+</RelativeLayout>
