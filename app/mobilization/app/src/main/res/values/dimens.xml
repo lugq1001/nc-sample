@@ -1,4 +1,5 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
     <dimen name="progress_size">24dp</dimen>
 
     <dimen name="spacing_v_1">4dp</dimen>
@@ -26,5 +27,98 @@
 
     <dimen name="size_training_btn">76dp</dimen>
     <dimen name="corner_training_btn">38dp</dimen>
+
+    <!--Chat-->
+    <dimen name="chat_avatar_corner">5dp</dimen>
+    <dimen name="chat_item_corner">6dp</dimen>
+    <dimen name="chat_item_avatar_size">36dp</dimen>
+
+    <dimen name="chat_recording_size">172dp</dimen>
+    <dimen name="chat_recording_countdown_text_size">100sp</dimen>
+    <dimen name="chat_recording_release_icon_width">64dp</dimen>
+    <dimen name="chat_recording_volume_icon_width">104dp</dimen>
+
+    <dimen name="chat_input_button_size">28dp</dimen>
+    <dimen name="chat_input_button_corner">14dp</dimen>
+    <dimen name="chat_input_button_icon_size">17dp</dimen>
+    <dimen name="chat_input_edit_min_height">36dp</dimen>
+    <dimen name="chat_input_edit_max_height">120dp</dimen>
+
+    <dimen name="chat_conversation_item_avatar_size">36dp</dimen>
+    <dimen name="chat_conversation_item_avatar_wrapper_width">42dp</dimen>
+    <dimen name="chat_conversation_item_avatar_wrapper_height">40dp</dimen>
+
+    <dimen name="chat_conversation_item_badge_size">8dp</dimen>
+    <dimen name="chat_conversation_item_badge_radius">4dp</dimen>
+    <dimen name="chat_conversation_item_date_width">80dp</dimen>
+
+
+    <dimen name="chat_contact_item_online_width">80dp</dimen>
+
+
+    <dimen name="chat_item_content_max_width">200dp</dimen>
+    <dimen name="chat_item_content_min_width">120dp</dimen>
+    <dimen name="chat_item_content_min_height">80dp</dimen>
+    <dimen name="chat_item_content_text_padding">6dp</dimen>
+    <dimen name="chat_item_content_image_placeholder_size">32dp</dimen>
+    <dimen name="chat_item_content_image_size">200dp</dimen>
+    <dimen name="chat_item_content_video_placeholder_size">32dp</dimen>
+    <dimen name="chat_item_content_voice_badge_size">6dp</dimen>
+    <dimen name="chat_item_content_voice_badge_corner">3dp</dimen>
+    <dimen name="chat_item_content_voice_content_max_width">120dp</dimen>
+    <dimen name="chat_item_content_voice_volume_size">17dp</dimen>
+
+    <dimen name="nc_widget_corner">5dp</dimen>
+
+    <dimen name="nc_status_height">20dp</dimen>
+
+    <dimen name="nc_view_spacing">12dp</dimen>
+    <dimen name="nc_view_spacing_large">20dp</dimen>
+    <dimen name="nc_widget_spacing">8dp</dimen>
+    <dimen name="nc_widget_spacing_small">4dp</dimen>
+    <dimen name="nc_dividing_thickness">1px</dimen>
+    <dimen name="nc_progress_thickness">5dp</dimen>
+
+    <dimen name="nc_navigation_content_height">44dp</dimen>
+    <dimen name="nc_navigation_height">56dp</dimen>
+    <!--<dimen name="nc_navigation_include_status_height">84dp</dimen>-->
+    <dimen name="nc_navigation_button_size">44dp</dimen>
+    <dimen name="nc_navigation_button_icon_size">21dp</dimen>
+    <dimen name="nc_navigation_search_height">28dp</dimen>
+    <dimen name="nc_navigation_search_corner">14dp</dimen>
+
+    <!--某些视图底部占位用，防止右下角加号遮挡-->
+    <dimen name="nc_view_bottom_spacing">76dp</dimen>
+
+    <!--侧划菜单头视图高度 nc_navigation_height + nc_status_height-->
+    <dimen name="nc_drawer_header_height">76dp</dimen>
+    <dimen name="nc_drawer_header_icon_size">32dp</dimen>
+    <dimen name="nc_drawer_item_height">48dp</dimen>
+    <dimen name="nc_drawer_item_icon_size">21dp</dimen>
+
+    <dimen name="nc_progress_size">24dp</dimen>
+
+    <dimen name="nc_cell_height">48dp</dimen>
+    <dimen name="nc_section_height">36dp</dimen>
+    <dimen name="nc_section_spacing">24dp</dimen>
+
+    <dimen name="nc_text_navigation">18sp</dimen>
+    <dimen name="nc_text_navigation_button">16sp</dimen>
+    <dimen name="nc_text_banner">16sp</dimen>
+    <dimen name="nc_text_title">15sp</dimen>
+    <dimen name="nc_text_sub_title">13sp</dimen>
+    <dimen name="nc_text_mini">12sp</dimen>
+
+    <dimen name="nc_common_icon_size">21dp</dimen>
+    <dimen name="nc_common_icon_size_small">17dp</dimen>
+    <dimen name="nc_common_icon_size_mini">13dp</dimen>
+    <dimen name="nc_common_image_button_size">44dp</dimen>
+
+    <dimen name="nc_common_float_button_size">48dp</dimen>
+    <dimen name="nc_common_float_button_corner">24dp</dimen>
+    <dimen name="design_fab_image_size" tools:override="true">28dp</dimen>
+
+    <dimen name="preview_audio_icon_size">64dp</dimen>
+    <dimen name="preview_audio_button_size">32dp</dimen>
 
 </resources>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <View style="@style/SplitH" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/iToggleButton"
+            android:layout_width="@dimen/chat_input_button_size"
+            android:layout_height="@dimen/chat_input_button_size"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/nc_chat_selector_bg_input_bar_btn"
+            android:contentDescription="@null"
+            android:src="@mipmap/nc_ic_chat_keyboard" />
+
+        <EditText
+            android:id="@+id/iContentEdit"
+            style="@style/EditText"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/nc_view_spacing"
+            android:layout_marginTop="@dimen/nc_widget_spacing"
+            android:layout_marginEnd="@dimen/nc_view_spacing"
+            android:layout_marginBottom="@dimen/nc_widget_spacing"
+            android:layout_toStartOf="@+id/iAddButton"
+            android:layout_toEndOf="@+id/iToggleButton"
+            android:background="@drawable/nc_chat_bg_input_bar_edit"
+            android:hint="@string/activity_chat_input_hint"
+            android:imeOptions="actionSend"
+            android:inputType="textMultiLine"
+            android:maxHeight="@dimen/chat_input_edit_max_height"
+            android:minHeight="@dimen/chat_input_edit_min_height"
+            android:paddingStart="@dimen/nc_widget_spacing"
+            android:paddingTop="@dimen/nc_widget_spacing_small"
+            android:paddingEnd="@dimen/nc_widget_spacing"
+            android:paddingBottom="@dimen/nc_widget_spacing_small"
+            android:singleLine="false"
+            android:visibility="gone"
+            tools:ignore="Autofill" />
+
+        <com.nextcont.mobilization.widget.ChatRecordingButton
+            android:id="@+id/iRecordingButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/chat_input_edit_min_height"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/nc_view_spacing"
+            android:layout_marginTop="@dimen/nc_widget_spacing"
+            android:layout_marginEnd="@dimen/nc_view_spacing"
+            android:layout_marginBottom="@dimen/nc_widget_spacing"
+            android:layout_toStartOf="@+id/iAddButton"
+            android:layout_toEndOf="@+id/iToggleButton"
+            android:background="@drawable/nc_chat_recording_button_normal"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/nc_text_title"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/iAddButton"
+            android:layout_width="@dimen/chat_input_button_size"
+            android:layout_height="@dimen/chat_input_button_size"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/nc_view_spacing"
+            android:layout_toStartOf="@+id/iSendButton"
+            android:background="@drawable/nc_chat_selector_bg_input_bar_btn"
+            android:contentDescription="@null"
+            android:src="@mipmap/nc_ic_chat_add" />
+
+        <ImageButton
+            android:id="@+id/iSendButton"
+            android:layout_width="@dimen/chat_input_button_size"
+            android:layout_height="@dimen/chat_input_button_size"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/nc_view_spacing"
+            android:background="@drawable/nc_chat_selector_bg_input_bar_btn"
+            android:contentDescription="@null"
+            android:src="@mipmap/nc_ic_chat_send" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

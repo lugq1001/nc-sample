@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <LinearLayout
+        android:id="@+id/iTopView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nc_cell_height">
+
+        <ImageButton
+            android:id="@+id/iCloseButton"
+            android:layout_width="@dimen/nc_common_image_button_size"
+            android:layout_height="@dimen/nc_common_image_button_size"
+            android:contentDescription="@null" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/iBottomView"
+        android:layout_below="@+id/iTopView">
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/iPreviewImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <VideoView
+            android:id="@+id/iPreviewVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/iPreviewProgress"
+            android:layout_width="@dimen/nc_progress_size"
+            android:layout_height="@dimen/nc_progress_size"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/nc_widget_spacing"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:indeterminateTint="@android:color/white" />
+
+        <TextView
+            android:id="@+id/iTipsText"
+            style="@style/TextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/nc_view_spacing_large"
+            android:layout_marginEnd="@dimen/nc_view_spacing_large"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="@android:color/white" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/iBottomView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nc_cell_height"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/iSaveButton"
+            style="@style/TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:text="保存至相册"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

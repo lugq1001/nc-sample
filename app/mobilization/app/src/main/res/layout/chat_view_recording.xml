@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/chat_recording_size"
+    android:layout_height="@dimen/chat_recording_size"
+    android:layout_gravity="center"
+    android:background="@drawable/nc_chat_bg_recording">
+
+    <LinearLayout
+        android:id="@+id/iVolumeView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/iTipsText"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/iVolumeImage"
+            android:layout_width="@dimen/chat_recording_volume_icon_width"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@mipmap/nc_ic_chat_volume_4" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/iReleaseToCancelView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/iTipsText"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/chat_recording_release_icon_width"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@mipmap/nc_ic_chat_release_to_cancel" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/iWarningView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/iTipsText"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/activity_chat_recording_alert"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/chat_recording_countdown_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/iCountdownView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/iTipsText"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/iCountdownText"
+            style="@style/TextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/chat_recording_countdown_text_size" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/iTipsText"
+        style="@style/TextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/nc_widget_spacing"
+        android:layout_marginEnd="@dimen/nc_widget_spacing"
+        android:layout_marginBottom="@dimen/nc_widget_spacing"
+        android:gravity="center"
+        android:paddingStart="@dimen/nc_widget_spacing_small"
+        android:paddingEnd="@dimen/nc_widget_spacing_small"
+        android:text="@string/app_name"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>

@@ -11,16 +11,18 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/iRecentButton"
             style="@style/TextButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="我的消息" />
+            android:text="最近消息" />
 
         <View style="@style/SplitVMini" />
 
         <Button
+            android:id="@+id/iContactButton"
             style="@style/TextButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"

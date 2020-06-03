@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 29
@@ -64,6 +65,8 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxjava:3.0.3'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
+    implementation 'com.blankj:utilcodex:1.29.0'
+
     implementation files('libs/ast.jar')
     implementation files('libs/baidu_license.jar')
     implementation files('libs/FaceSDK.jar')
@@ -105,5 +108,14 @@ dependencies {
      *  https://github.com/CymChad/BaseRecyclerViewAdapterHelper
      */
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
+
+    /**
+     * https://github.com/chrisbanes/PhotoView
+     */
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
+    implementation 'top.zibin:Luban:1.1.8'
+
+    implementation 'com.zhihu.android:matisse:0.5.3-beta3'
 
 }

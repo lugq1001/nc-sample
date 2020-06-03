@@ -2,23 +2,23 @@ package com.nextcont.mobilization
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import com.baidu.idl.face.platform.FaceEnvironment
 import com.baidu.idl.face.platform.FaceSDKManager
 import com.baidu.idl.face.platform.LivenessTypeEnum
-import com.nextcont.mobilization.service.LocationService
+import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.Utils
+import io.realm.Realm
 import timber.log.Timber
 
-class MobApp: Application() {
+class MobApp : Application() {
 
     companion object {
 
         lateinit var Shared: MobApp private set
         lateinit var Context: Context private set
 
-        val sp: SharedPreferences
-            get() = Context.getSharedPreferences("mob_data_3", MODE_PRIVATE)
-
+        val UrlAuthority: String
+            get() = "${AppUtils.getAppPackageName()}.fileProvider"
     }
 
 
@@ -29,8 +29,10 @@ class MobApp: Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-
         initFaceSDK()
+
+        Realm.init(this)
+        Utils.init(this)
     }
 
     private fun initFaceSDK() {
@@ -38,16 +40,19 @@ class MobApp: Application() {
         // 应用上下文
         // 申请License取得的APPID
         // assets目录下License文件名
-        FaceSDKManager.getInstance().initialize(this, "mobilization-face-android", "idl-license.face-android")
+        FaceSDKManager.getInstance()
+            .initialize(this, "mobilization-face-android", "idl-license.face-android")
 
         val config = FaceSDKManager.getInstance().faceConfig
         // SDK初始化已经设置完默认参数（推荐参数），您也根据实际需求进行数值调整
         // SDK初始化已经设置完默认参数（推荐参数），您也根据实际需求进行数值调整
-        config.setLivenessTypeList(listOf(
-            LivenessTypeEnum.HeadLeftOrRight,
-            LivenessTypeEnum.Eye,
-            LivenessTypeEnum.Mouth
-        ))
+        config.setLivenessTypeList(
+            listOf(
+                LivenessTypeEnum.HeadLeftOrRight,
+                LivenessTypeEnum.Eye,
+                LivenessTypeEnum.Mouth
+            )
+        )
         config.setLivenessRandom(true)
         config.setBlurnessValue(FaceEnvironment.VALUE_BLURNESS)
         config.setBrightnessValue(FaceEnvironment.VALUE_BRIGHTNESS)

@@ -27,4 +27,22 @@
     <color name="layerBlack">#b3000000</color>
     <color name="layerBlackLight">#80000000</color>
 
+    <!--  Chat  -->
+    <color name="chat_input_tint">#7c7c7c</color>
+
+    <color name="chat_recording_button_background">#f2f2f2</color>
+    <color name="chat_recording_button_background_touched">#c2c2c7</color>
+    <color name="chat_recording_button_text">#545454</color>
+    <color name="chat_recording_button_text_touched">#969696</color>
+
+    <color name="chat_content_bg_text_left">#ffffff</color>
+    <color name="chat_content_bg_text_left_pressed">#DEDEDE</color>
+
+    <color name="chat_content_bg_text_right">#dfe6e9</color>
+    <color name="chat_content_bg_text_right_pressed">#C8CED1</color>
+
+    <color name="nc_common_icon">#707070</color>
+    <color name="nc_common_icon_bg">#DDDDDD</color>
+    <color name="nc_common_icon_bg_pressed">#C0C0C0</color>
+
 </resources>

@@ -2,6 +2,8 @@ package com.nextcont.mobilization.util
 
 import android.content.Context
 import android.os.Build
+import java.math.BigInteger
+import java.security.MessageDigest
 
 object AppUtil {
 
@@ -13,3 +15,9 @@ object AppUtil {
     }
 
 }
+
+val String.md5: String
+    get() {
+        val md = MessageDigest.getInstance("MD5")
+        return BigInteger(1, md.digest(toByteArray())).toString(16).padStart(32, '0')
+    }

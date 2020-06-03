@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat
 import com.nextcont.mobilization.MobApp
 import com.nextcont.mobilization.R
 import com.nextcont.mobilization.network.response.LoginResponse
+import com.nextcont.mobilization.store.Store
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 
@@ -98,7 +99,7 @@ data class User(
         }
 
         fun load(): User? {
-            val json = MobApp.sp.getString(STORE_NAME, null) ?: return null
+            val json = Store.sharedPreferences.getString(STORE_NAME, null) ?: return null
             val ms = Moshi.Builder().build()
             return ms.adapter(User::class.java).fromJson(json)
         }
@@ -106,7 +107,7 @@ data class User(
     }
 
     fun save() {
-        val editor = MobApp.sp.edit()
+        val editor = Store.sharedPreferences.edit()
         val ms = Moshi.Builder().build()
         val json = ms.adapter(User::class.java).toJson(this)
         editor.putString(STORE_NAME, json)
@@ -114,7 +115,7 @@ data class User(
     }
 
     fun clear() {
-        MobApp.sp.edit().remove(STORE_NAME).apply()
+        Store.sharedPreferences.edit().remove(STORE_NAME).apply()
     }
 
 }

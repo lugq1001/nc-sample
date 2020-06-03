@@ -1,6 +1,7 @@
 package com.nextcont.mobilization.model
 
 import com.nextcont.mobilization.MobApp
+import com.nextcont.mobilization.store.Store
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
@@ -23,7 +24,7 @@ data class CheckIn(
             }
 
         fun load(): List<CheckIn> {
-            MobApp.sp.getString(STORE_KEY, null)?.let { string ->
+            Store.sharedPreferences.getString(STORE_KEY, null)?.let { string ->
                 val json = Moshi.Builder().build()
                 val type: Type = Types.newParameterizedType(List::class.java, CheckIn::class.java)
                 val adapter: JsonAdapter<List<CheckIn>> = json.adapter(type)
@@ -62,7 +63,7 @@ data class CheckIn(
         val type: Type = Types.newParameterizedType(List::class.java, CheckIn::class.java)
         val adapter: JsonAdapter<List<CheckIn>> = json.adapter(type)
         val jString = adapter.toJson(records)
-        MobApp.sp.edit().putString(STORE_KEY, jString).apply()
+        Store.sharedPreferences.edit().putString(STORE_KEY, jString).apply()
     }
 
 }

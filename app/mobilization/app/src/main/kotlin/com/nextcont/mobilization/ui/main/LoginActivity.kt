@@ -41,7 +41,8 @@ class LoginActivity : AppCompatActivity() {
         iProgress = findViewById(R.id.iProgress)
 
         iLoginButton.setOnClickListener {
-            login()
+            //login()
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         iRegisterButton.setOnClickListener {

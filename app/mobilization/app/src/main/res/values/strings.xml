@@ -54,7 +54,79 @@
     <string name="title_about">关于</string>
 
 
+    <!-- 聊天 -->
+    <string name="contact_name_unknown">不明人士</string>
 
+    <string name="time_display_just_now">刚刚</string>
+    <string name="time_display_minute_ago">分钟前</string>
+    <string name="time_display_hour_ago">小时前</string>
+    <string name="time_display_day_ago">天前</string>
+    <string name="time_display_long_time_age">很久以前</string>
+
+    <string name="message_media_type_image">[图片]</string>
+    <string name="message_media_type_video">[视频]</string>
+    <string name="message_media_type_voice">[语音]</string>
+
+    <string name="title_activity_preview">预览</string>
+    <string name="activity_preview_video_failed">加载视频失败，视频可能仍在处理中，请稍后再尝试。</string>
+    <string name="activity_preview_image_saved">已保存至本地相册</string>
+
+    <string name="activity_frame_item_conversation">最近会话</string>
+    <string name="activity_frame_item_favorite">收藏</string>
+    <string name="activity_frame_item_archive">归档</string>
+    <string name="activity_frame_item_contact">联系人</string>
+    <string name="activity_frame_item_invitation">会话邀请</string>
+    <string name="activity_frame_create_conversation">创建会话</string>
+    <string name="activity_frame_create_group_conversation">创建群组</string>
+
+    <string name="fragment_conversation_search_tint">搜索会话</string>
+    <string name="fragment_conversation_archive">归档</string>
+    <string name="fragment_conversation_archive_cancel">取消归档</string>
+    <string name="fragment_conversation_favorite">收藏</string>
+    <string name="fragment_conversation_favorite_cancel">取消收藏</string>
+    <string name="fragment_conversation_none_inbox">没有任何会话</string>
+    <string name="fragment_conversation_none_favorite">未收藏任何会话</string>
+    <string name="fragment_conversation_none_archive">未归档任何会话</string>
+    <string name="fragment_conversation_sync_inbox">正在同步，该过程较为耗时，请耐心等待。</string>
+    <string name="fragment_conversation_sync_favorite">正在加载</string>
+    <string name="fragment_conversation_sync_archive">正在同步</string>
+    <string name="fragment_conversation_favorite_success">收藏成功</string>
+
+    <string name="title_activity_chat">对话</string>
+    <string name="activity_chat_input_hint">输入文字内容&#8230;</string>
+    <string name="activity_chat_recording_hold_speak">按住 说话</string>
+    <string name="activity_chat_recording_release_speak">松开 结束</string>
+    <string name="activity_chat_recording_slide_cancel">手指上滑，取消发送</string>
+    <string name="activity_chat_recording_lose_cancel">松开手指，取消发送</string>
+    <string name="activity_chat_recording_alert">!</string>
+    <string name="activity_chat_click_play">点击播放</string>
+    <string name="activity_chat_exit">您已退出该会话</string>
+    <string name="activity_chat_resend_confirm">是否重发此消息？</string>
+    <string name="activity_chat_image_not_exist">图片不存在</string>
+
+
+    <string name="fragment_contact_online">最近在线</string>
+    <string name="fragment_contact_search_tint">搜索联系人</string>
+    <string name="fragment_contact_none">没有联系人</string>
+    <string name="fragment_contact_create_conversation_failed">创建会话失败.</string>
+
+    <string name="fragment_invitation_accept">接受</string>
+    <string name="fragment_invitation_ignore">忽略</string>
+    <string name="fragment_invitation_none">他人请求与您会话时将会在此显示，您当前没有任何邀请。</string>
+
+    <string name="title_activity_conversation_info">群组信息</string>
+    <string name="activity_conversation_info_name_tips">输入群组名称</string>
+    <string name="activity_conversation_info_create">创建群组</string>
+    <string name="activity_conversation_info_add_member">加人</string>
+    <string name="activity_conversation_info_exit">退出群组</string>
+    <string name="activity_conversation_info_exit_tips">是否退出该群组？</string>
+    <string name="activity_conversation_info_kick_off_tips">确定将%s移出群组？</string>
+
+    <string name="title_activity_conversation_create">选择联系人，创建会话</string>
+    <string name="activity_conversation_create_name_hint">请输入群组名称</string>
+    <string name="activity_conversation_create_member_none">请选择群组成员</string>
+
+    <string name="title_activity_profile">用户信息</string>
 
     <!--  人脸识别  -->
     <string name="detect_no_face">未检测到人脸</string>

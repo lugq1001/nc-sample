@@ -4,30 +4,51 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager.widget.ViewPager
+import com.nextcont.mobilization.MobApp
 import com.nextcont.mobilization.R
-import com.nextcont.mobilization.ui.assess.AssessFragment
-import com.nextcont.mobilization.ui.me.MeFragment
-import com.nextcont.mobilization.ui.news.NewsFragment
-import com.nextcont.mobilization.ui.trains.TrainsFragment
 
 
 class ChatFragment : Fragment() {
 
+    private lateinit var iRecentButton: Button
+    private lateinit var iContactButton: Button
 
+    private var viewType = ViewType.RecentMessage
 
-    private val fragments = listOf(
-        MeFragment(),
-        NewsFragment()
-    )
+    private lateinit var recentView: ChatRecentFragment
+    private lateinit var contactView: ChatContactFragment
+
+    private enum class ViewType {
+        RecentMessage,
+        Contact
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_chat, container, false)
+        iRecentButton = view.findViewById(R.id.iRecentButton)
+        iContactButton = view.findViewById(R.id.iContactButton)
+
+        iRecentButton.setOnClickListener {
+            toggleViewType(ViewType.RecentMessage)
+        }
+
+        iContactButton.setOnClickListener {
+            toggleViewType(ViewType.Contact)
+        }
 
 
+        recentView = ChatRecentFragment()
+        contactView = ChatContactFragment()
+
+        val transaction = childFragmentManager.beginTransaction()
+        transaction.add(R.id.iContentFrame, recentView)
+        transaction.add(R.id.iContentFrame, contactView)
+        transaction.commit()
+
+        toggleViewType(viewType)
         return view
 
         //        val pd = ProgressDialog(act)
@@ -49,5 +70,23 @@ class ChatFragment : Fragment() {
 //            })
     }
 
+    private fun toggleViewType(viewType: ViewType) {
+        val transaction = childFragmentManager.beginTransaction()
+        when (viewType) {
+            ViewType.RecentMessage -> {
+                transaction.show(recentView)
+                transaction.hide(contactView)
+                iRecentButton.setTextColor(ContextCompat.getColor(MobApp.Context, R.color.text_text_btn))
+                iContactButton.setTextColor(ContextCompat.getColor(MobApp.Context, R.color.text_text_btn_unsel))
+            }
+            ViewType.Contact -> {
+                transaction.hide(recentView)
+                transaction.show(contactView)
+                iContactButton.setTextColor(ContextCompat.getColor(MobApp.Context, R.color.text_text_btn))
+                iRecentButton.setTextColor(ContextCompat.getColor(MobApp.Context, R.color.text_text_btn_unsel))
+            }
+        }
+        transaction.commit()
 
+    }
 }
