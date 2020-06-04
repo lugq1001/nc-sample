@@ -2,14 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/container"
+    android:orientation="horizontal">
 
-    <Button
-        style="@style/TextButton"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="86dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="群组" />
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/iFirstButton"
+            style="@style/TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="通信班" />
+
+        <View style="@style/SplitHMini" />
+
+        <Button
+            android:id="@+id/iSecondButton"
+            style="@style/TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="侦察班" />
+
+        <View style="@style/SplitHMini" />
+
+    </LinearLayout>
+
+    <View style="@style/SplitV" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/iContactRecycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

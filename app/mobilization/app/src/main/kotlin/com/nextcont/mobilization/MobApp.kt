@@ -7,6 +7,7 @@ import com.baidu.idl.face.platform.FaceSDKManager
 import com.baidu.idl.face.platform.LivenessTypeEnum
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
+import com.nextcont.mobilization.model.chat.VMConversation
 import io.realm.Realm
 import timber.log.Timber
 
@@ -33,6 +34,8 @@ class MobApp : Application() {
 
         Realm.init(this)
         Utils.init(this)
+
+
     }
 
     private fun initFaceSDK() {
@@ -49,7 +52,6 @@ class MobApp : Application() {
         config.setLivenessTypeList(
             listOf(
                 LivenessTypeEnum.HeadLeftOrRight,
-                LivenessTypeEnum.Eye,
                 LivenessTypeEnum.Mouth
             )
         )
@@ -67,6 +69,8 @@ class MobApp : Application() {
         config.setFaceDecodeNumberOfThreads(2)
 
         FaceSDKManager.getInstance().faceConfig = config
+
+
     }
 
 //    不透明 100% FF

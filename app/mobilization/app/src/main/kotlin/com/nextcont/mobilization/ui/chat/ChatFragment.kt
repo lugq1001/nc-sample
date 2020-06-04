@@ -50,24 +50,6 @@ class ChatFragment : Fragment() {
 
         toggleViewType(viewType)
         return view
-
-        //        val pd = ProgressDialog(act)
-//        pd.show()
-
-//        MobApi.logout(Account.deviceId)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({
-//                pd.dismiss()
-//                Account.deviceId = ""
-//                Account.user = null
-//                act.finish()
-//            }, { e ->
-//                pd.dismiss()
-//                DialogUtil.showAlert(act, e.localizedMessage, action = {
-//
-//                })
-//            })
     }
 
     private fun toggleViewType(viewType: ViewType) {

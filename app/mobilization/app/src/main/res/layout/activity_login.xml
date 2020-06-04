@@ -61,6 +61,7 @@
                 android:layout_marginStart="@dimen/spacing_h_2"
                 android:layout_marginEnd="@dimen/spacing_h_2"
                 android:hint="@string/login_username"
+                android:text="xusibing002"
                 android:textColor="@android:color/white"
                 tools:ignore="Autofill" />
 
@@ -79,6 +80,7 @@
                 android:layout_marginEnd="@dimen/spacing_h_2"
                 android:hint="@string/login_password"
                 android:inputType="textPassword"
+                android:text="123456"
                 android:textColor="@android:color/white"
                 tools:ignore="Autofill" />
 

@@ -23,24 +23,15 @@ internal class ChatAdapter : BaseMultiItemQuickAdapter<VMMessage, ChatAdapter.Ch
 
     val imageLoadedSubject = PublishSubject.create<Unit>()
 
-    override fun convert(holder: ChatViewHolder, message: VMMessage) {
-        val avatar = ""
-        if (holder.itemViewType == 0) {
-            // TODO 头像
+    override fun convert(holder: ChatViewHolder, item: VMMessage) {
+        val avatar: String = if (holder.itemViewType == 0) {
             // 自己
-//            avatar = VMAccountInfo.load().avatar
-//            if (avatar.isEmpty()) {
-//                avatar = message.sender.avatar
-//            }
+            VMContact.self.avatar
         } else {
-            //avatar = message.sender.avatar
+            item.sender.avatar
         }
 
-        if (avatar.isEmpty()) {
-            ImageProvider.loadAvatar(context, R.mipmap.nc_img_chat_avatar, holder.iAvatarImage, R.dimen.chat_avatar_corner)
-        } else {
-            ImageProvider.loadAvatar(context, ImageProvider.makeProxyUrl(avatar), holder.iAvatarImage, R.mipmap.nc_img_chat_avatar, R.dimen.chat_avatar_corner)
-        }
+        ImageProvider.loadAvatar(context, avatar, holder.iAvatarImage, R.mipmap.nc_img_chat_avatar, R.dimen.chat_avatar_corner)
 
         // TODO 头像点击
         //holder.addOnClickListener(R.id.iAvatarWrapper)
@@ -54,25 +45,23 @@ internal class ChatAdapter : BaseMultiItemQuickAdapter<VMMessage, ChatAdapter.Ch
         holder.iContentVoiceWrapper.visibility = GONE
         holder.iLoadingProgress?.visibility = GONE
 
-        val time = message.displayTime
+        val time = item.displayTime
         if (time == 0L) {
             holder.iTimeText.visibility = GONE
         } else {
             holder.iTimeText.visibility = VISIBLE
-            holder.iTimeText.text = message.formatTime
+            holder.iTimeText.text = item.formatTime
         }
 
-        val content = message.content
+        val content = item.content
         when (content.type) {
             VMMessageContent.Type.Text -> {
-                val textContent = message.content as VMMessageContentText
-                // TODO 文本点击
-                //holder.addOnLongClickListener(R.id.iContentTextWrapper)
+                val textContent = item.content as VMMessageContentText
                 holder.iContentTextWrapper.visibility = VISIBLE
                 holder.iContextText.text = textContent.plainText
             }
             VMMessageContent.Type.Image -> {
-                val imageContent = message.content as VMMessageContentImage
+                val imageContent = item.content as VMMessageContentImage
                 holder.iContentImageWrapper.visibility = VISIBLE
 
                 holder.iContextImagePlaceholder.setImageDrawable(getImagePlaceholder(context))
@@ -81,24 +70,20 @@ internal class ChatAdapter : BaseMultiItemQuickAdapter<VMMessage, ChatAdapter.Ch
                     holder.iContextImagePlaceholder.visibility = GONE
                     imageLoadedSubject.onNext(Unit)
                 })
-                // TODO 图片点击
-                //holder.addOnClickListener(R.id.iContentImageWrapper)
+
             }
             VMMessageContent.Type.Video -> {
                 holder.iContentVideoWrapper.visibility = VISIBLE
                 holder.iContextVideoIcon.setImageDrawable(getVideoPlaceholder(context))
-                // TODO 视频点击
-                //holder.addOnClickListener(R.id.iContentVideoWrapper)
             }
             VMMessageContent.Type.Voice -> {
-                val voiceContent = message.content as VMMessageContentVoice
+                val voiceContent = item.content as VMMessageContentVoice
                 holder.iContentVoiceWrapper.visibility = VISIBLE
                 holder.iVoiceLengthText.text = voiceContent.durationPlaceholder
                 holder.iDurationText.text = voiceContent.displayDuration
                 holder.iVoiceBadge?.visibility = if (voiceContent.played) GONE else VISIBLE
                 holder.iVoiceProgress?.visibility = if (voiceContent.loading) VISIBLE else GONE
-                // TODO 语音点击
-                //holder.addOnClickListener(R.id.iVoiceWrapper)
+
                 when (holder.itemViewType) {
                     0 -> {
                         holder.iVolumeImage.setImageDrawable(getVolumeIconRight(context).last())
@@ -110,7 +95,7 @@ internal class ChatAdapter : BaseMultiItemQuickAdapter<VMMessage, ChatAdapter.Ch
             }
         }
 
-        when (message.sendStatus) {
+        when (item.sendStatus) {
             VMMessage.SendState.Success -> {
                 holder.iWarningImage?.visibility = INVISIBLE
                 holder.iLoadingProgress?.visibility = INVISIBLE
@@ -155,6 +140,8 @@ internal class ChatAdapter : BaseMultiItemQuickAdapter<VMMessage, ChatAdapter.Ch
         val iContentVoiceWrapper: LinearLayout = view.findViewById(R.id.iContentVoiceWrapper)
         val iVolumeImage: ImageView = view.findViewById(R.id.iVolumeImage)
         val iVoiceLengthText: TextView = view.findViewById(R.id.iVoiceLengthText)
+        val iVoiceWrapper: LinearLayout = view.findViewById(R.id.iVoiceWrapper)
+
         val iVoiceBadge: View? = view.findViewById(R.id.iVoiceBadge)
         val iDurationText: TextView = view.findViewById(R.id.iDurationText)
         val iVoiceProgress: ProgressBar? = view.findViewById(R.id.iVoiceProgress)

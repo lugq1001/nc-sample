@@ -28,6 +28,7 @@ import com.nextcont.mobilization.util.MatisseEngine
 import com.nextcont.mobilization.widget.ChatInputBar
 import com.nextcont.mobilization.widget.ChatRecordingButton
 import com.nextcont.mobilization.widget.ChatRecordingView
+import com.squareup.moshi.Moshi
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
@@ -46,9 +47,11 @@ import kotlin.math.max
 internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProtocol, ChatRecordingButton.RecordingButtonProtocol, Recording.RecordingProtocol, RecordingPlayer.RecordingPlayerProtocol {
 
     companion object {
-        const val INTENT_KEY_CONVERSION_ID = "CONVERSATION_ID"
+        const val INTENT_KEY_CONVERSION = "CONVERSATION"
 
         private const val REQ_CODE_CHOOSE_IMAGE = 100
+
+        val closeMonitor = PublishSubject.create<Unit>()!!
     }
 
     val viewModel = ChatViewModel()
@@ -62,11 +65,13 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
 
     private val loadMoreMonitor = PublishSubject.create<Unit>()
 
+
+
     private var isRecording = false
 
     private var adapter = ChatAdapter()
 
-    private lateinit var conversationId: String
+    private lateinit var conversion: VMConversation
 
     private val handler = Handler()
     private var hasInit = false
@@ -87,9 +92,13 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chat_activity_chat)
-        conversationId = intent.getStringExtra(INTENT_KEY_CONVERSION_ID)
 
-        viewModel.bind(this, conversationId)
+        val json = Moshi.Builder().build()
+        conversion = json.adapter(VMConversation::class.java).fromJson(intent.getStringExtra(INTENT_KEY_CONVERSION)!!)!!
+
+        title = conversion.name
+
+        viewModel.bind(this, conversion)
         recording = Recording()
         recording.setDelegate(this)
         recordingPlayer = RecordingPlayer(this)
@@ -113,7 +122,7 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
         initView()
     }
 
-    fun initView() {
+    private fun initView() {
         iInputBar = findViewById(R.id.iInputBar)
         iInputBar.setDelegate(this, this)
 
@@ -131,8 +140,13 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
 
         adapter.setNewInstance(mutableListOf())
 
+        adapter.addChildClickViewIds(R.id.iContentImageWrapper)
+        adapter.addChildClickViewIds(R.id.iContentVideoWrapper)
+        adapter.addChildClickViewIds(R.id.iVoiceWrapper)
+        adapter.addChildClickViewIds(R.id.iContentTextWrapper)
+
         adapter.setOnItemChildLongClickListener { _, view, position ->
-            this.adapter.getItem(position)?.let {
+            this.adapter.getItem(position).let {
                 when (view.id) {
                     R.id.iContentTextWrapper -> {
                         copyText(it.content as VMMessageContentText)
@@ -165,6 +179,7 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
 
     override fun finish() {
         KeyboardUtils.hideSoftInput(this)
+        closeMonitor.onNext(Unit)
         super.finish()
     }
 
@@ -181,7 +196,7 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
 
     // 防止多次点击
     private fun itemChildClick(pair: Pair<Int, Int>) {
-        this.adapter.getItem(pair.second)?.let {
+        this.adapter.getItem(pair.second).let {
             when (pair.first) {
                 R.id.iAvatarWrapper -> {
                     showUserInfo(it.sender)
@@ -206,7 +221,7 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
      */
     fun updateView(conversation: VMConversation) {
         handler.post {
-            title = conversation.extraInfo.displayName
+            title = conversation.name
             // TODO 更新UI
 //            when (conversation.chatType) {
 //                VMConversation.ChatType.Group -> {
@@ -308,10 +323,8 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
      */
     fun onLoadMessages(messages: MutableList<VMMessage>) {
         handler.post {
-            if (viewModel.page == Integer.MAX_VALUE) {
-                adapter.removeHeaderView(loadMoreView)
-            }
-            adapter.setNewData(messages)
+            adapter.removeHeaderView(loadMoreView)
+            adapter.setList(messages)
             scrollToBottom()
         }
     }
@@ -367,48 +380,31 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
     //====================================================
     // 消息通知处理
     //====================================================
-    fun exitConversation() {
-        handler.post {
-            DialogUtil.showConfirm(this, getString(R.string.activity_chat_exit), "确定") {
-                Store.openRealm.executeTransactionAsync {
-                    VMConversation.delete(it, conversationId)
-                    finish()
-                }
-            }
-        }
-    }
-
-    fun updateConversation(conversation: VMConversation) {
-        handler.post {
-            title = conversation.extraInfo.displayName
-        }
-    }
-
-    fun showNewMessages(messages: List<VMMessage>) {
-        this.viewModel.readMessages(messages)
-        handler.post {
-            val result = mutableListOf<VMMessage>()
-            val data = adapter.data
-            messages.forEach { m1 ->
-                var exist = false
-                data.forEach { m2 ->
-                    if (m1.sid == m2.sid) {
-                        exist = true
-                    }
-                }
-                if (!exist) {
-                    result.add(m1)
-                }
-            }
-            if (result.isEmpty()) {
-                return@post
-            }
-            this.adapter.addData(result)
-            if (shouldAutoScrollToBottom) {
-                this.scrollToBottom()
-            }
-        }
-    }
+//    fun showNewMessages(messages: List<VMMessage>) {
+//        this.viewModel.readMessages(messages)
+//        handler.post {
+//            val result = mutableListOf<VMMessage>()
+//            val data = adapter.data
+//            messages.forEach { m1 ->
+//                var exist = false
+//                data.forEach { m2 ->
+//                    if (m1.sid == m2.sid) {
+//                        exist = true
+//                    }
+//                }
+//                if (!exist) {
+//                    result.add(m1)
+//                }
+//            }
+//            if (result.isEmpty()) {
+//                return@post
+//            }
+//            this.adapter.addData(result)
+//            if (shouldAutoScrollToBottom) {
+//                this.scrollToBottom()
+//            }
+//        }
+//    }
 
     fun showSendMessage(message: VMMessage) {
         handler.post {

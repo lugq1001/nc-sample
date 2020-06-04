@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.nextcont.mobilization.R
-import com.nextcont.mobilization.service.LocationService
 import com.nextcont.mobilization.ui.face.FaceLivenessExpActivity
+import com.nextcont.mobilization.ui.face.FaceLivenessExpActivity.Companion.CODE_SUCCESS
 import com.nextcont.mobilization.util.DialogUtil
 import java.io.InputStream
 
@@ -73,11 +73,19 @@ class LearnActivity : AppCompatActivity() {
     }
 
     private fun checkFace() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            startActivityForResult(Intent(this, FaceLivenessExpActivity::class.java), FaceLivenessExpActivity.CODE_SUCCESS)
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            startActivityForResult(Intent(this, FaceLivenessExpActivity::class.java), 98)
         } else {
             // 权限申请
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), REQ_CODE_CAMERA)
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.CAMERA),
+                REQ_CODE_CAMERA
+            )
         }
     }
 
@@ -95,6 +103,13 @@ class LearnActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             checkFace()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 98 && resultCode == CODE_SUCCESS) {
+            enterAssess()
         }
     }
 

@@ -25,11 +25,11 @@ internal class ChatViewModel {
     }
 
     private var activity: WeakReference<ChatActivity>? = null
-    private lateinit var conversationId: String
+    private lateinit var conversation: VMConversation
 
-    fun bind(activity: ChatActivity, conversationId: String) {
+    fun bind(activity: ChatActivity, conversation: VMConversation) {
         this.activity = WeakReference(activity)
-        this.conversationId = conversationId
+        this.conversation = conversation
 
         // TODO消息推送
 //        this.disposableBag.add(ChatSession.asyncSubject.subscribe { obj ->
@@ -43,54 +43,52 @@ internal class ChatViewModel {
     }
 
     fun loadData() {
-        Store.openRealm.executeTransactionAsync {
-            VMConversation.findBySid(it, conversationId)?.let { c ->
-                this.activity?.get()?.updateView(c)
-            }
-        }
+//        Store.openRealm.executeTransactionAsync {
+//            VMConversation.findBySid(it, conversationId)?.let { c ->
+//                this.activity?.get()?.updateView(c)
+//            }
+//        }
     }
 
     fun loadMessages() {
         if (page == Integer.MAX_VALUE) {
             return
         }
-        Store.openRealm.executeTransactionAsync {
-            val messages = VMMessage.findAll(it, conversationId, page, pageSize).toMutableList()
-            if (messages.isEmpty() || messages.count() < pageSize) {
-                page = Integer.MAX_VALUE
-            }
-            activity?.get()?.onLoadMessages(messages)
+        val messages = VMConversation.messages[conversation.sid] ?: mutableListOf()
+        if (messages.isEmpty() || messages.count() < pageSize) {
+            page = Integer.MAX_VALUE
         }
+        activity?.get()?.onLoadMessages(messages)
     }
 
     /**
      * 加载更早的消息
      */
     fun loadMoreMessages() {
-        if (page == Integer.MAX_VALUE) {
-            return
-        }
-        page++
-        Store.openRealm.executeTransactionAsync {
-            val messages = VMMessage.findAll(it, conversationId, page, pageSize).toMutableList()
-            if (messages.isEmpty() || messages.count() < pageSize) {
-                page = Integer.MAX_VALUE
-            }
-            activity?.get()?.onLoadMoreMessages(messages)
-        }
+//        if (page == Integer.MAX_VALUE) {
+//            return
+//        }
+//        page++
+//        Store.openRealm.executeTransactionAsync {
+//            val messages = VMMessage.findAll(it, conversationId, page, pageSize).toMutableList()
+//            if (messages.isEmpty() || messages.count() < pageSize) {
+//                page = Integer.MAX_VALUE
+//            }
+//            activity?.get()?.onLoadMoreMessages(messages)
+//        }
     }
 
     fun readMessages(messages: List<VMMessage>) {
-        val ids = mutableSetOf<String>()
-        messages.forEach {
-            ids.add(it.sid)
-        }
-        // 将所有消息设为已读
-        Store.openRealm.executeTransactionAsync {
-            VMMessage.allRead(it, ids)
-            // TODO 发送已读消息
-            //ChatSession.send(MsgMarkEventObserved0(conversationId, ids))
-        }
+//        val ids = mutableSetOf<String>()
+//        messages.forEach {
+//            ids.add(it.sid)
+//        }
+//        // 将所有消息设为已读
+//        Store.openRealm.executeTransactionAsync {
+//            VMMessage.allRead(it, ids)
+//            // TODO 发送已读消息
+//            //ChatSession.send(MsgMarkEventObserved0(conversationId, ids))
+//        }
     }
 
     //==============================================
@@ -119,18 +117,6 @@ internal class ChatViewModel {
                 emitter.onSuccess(voice)
                 return@create
             }
-            var rm: Realm? = null
-            try {
-                rm = Store.openRealm
-                rm.executeTransaction {
-                    voice.played = true
-                    voice.saveOrUpdate(it)
-                }
-            } catch (e: Exception) {
-
-            } finally {
-                Store.closeRealm(rm)
-            }
             emitter.onSuccess(voice)
         }
     }
@@ -153,16 +139,7 @@ internal class ChatViewModel {
     // TODO 获取语音下载地址
     private fun getVoiceDownloadUrl(voice: VMMessageContentVoice): Single<VMMessageContentVoice> {
         return Single.create { emitter ->
-//            disposableBag.add(NCApi.render.chat.voiceInfo(VMAccountInfo.load().sid, voice.code).subscribeOn(Schedulers.computation()).subscribe({ obj ->
-//                Logger.i("语音下载地址; ${obj.data.cdnUrl}")
-//                Store.getRealm.executeTransaction { realm ->
-//                    voice.downloadUrl = obj.data.cdnUrl
-//                    voice.saveOrUpdate(realm)
-//                    emitter.onSuccess(voice)
-//                }
-//            }, { throwable ->
-//                emitter.onError(throwable)
-//            }))
+           emitter.onSuccess(voice)
         }
     }
 
@@ -204,62 +181,62 @@ internal class ChatViewModel {
     // 发送文字消息
     //==============================================
     fun resend(message: VMMessage) {
-        message.sendStatus = VMMessage.SendState.Processing
-        Store.openRealm.executeTransactionAsync(Realm.Transaction { realm ->
-            message.saveOrUpdate(realm)
-            activity?.get()?.updateMessages(listOf(message))
-        }, Realm.Transaction.OnSuccess {
-            when (message.content.type) {
-                VMMessageContent.Type.Text -> {
-                    send(message)
-                }
-                VMMessageContent.Type.Voice -> {
-                    messageSendBag.add(uploadVoice(message).subscribe({ message ->
-                        send(message)
-                    }, {
-                        messageFailed(message)
-                    }))
-                }
-                VMMessageContent.Type.Image -> {
-                    val image = message.content as? VMMessageContentImage ?: return@OnSuccess
-                    if (image.localPath.isEmpty() || !FileUtils.isFileExists(image.localPath)) {
-                        val view = activity ?: return@OnSuccess
-                        messageFailed(message)
-                        ToastUtils.showShort(view.get()?.getString(R.string.activity_chat_image_not_exist))
-                        return@OnSuccess
-                    }
-                    messageSendBag.add(uploadImage(message).subscribe({ message ->
-                        send(message)
-                    }, {
-                        messageFailed(message)
-                    }))
-                }
-                VMMessageContent.Type.Video -> {
-
-                }
-            }
-        })
+//        message.sendStatus = VMMessage.SendState.Processing
+//        Store.openRealm.executeTransactionAsync(Realm.Transaction { realm ->
+//            message.saveOrUpdate(realm)
+//            activity?.get()?.updateMessages(listOf(message))
+//        }, Realm.Transaction.OnSuccess {
+//            when (message.content.type) {
+//                VMMessageContent.Type.Text -> {
+//                    send(message)
+//                }
+//                VMMessageContent.Type.Voice -> {
+//                    messageSendBag.add(uploadVoice(message).subscribe({ message ->
+//                        send(message)
+//                    }, {
+//                        messageFailed(message)
+//                    }))
+//                }
+//                VMMessageContent.Type.Image -> {
+//                    val image = message.content as? VMMessageContentImage ?: return@OnSuccess
+//                    if (image.localPath.isEmpty() || !FileUtils.isFileExists(image.localPath)) {
+//                        val view = activity ?: return@OnSuccess
+//                        messageFailed(message)
+//                        ToastUtils.showShort(view.get()?.getString(R.string.activity_chat_image_not_exist))
+//                        return@OnSuccess
+//                    }
+//                    messageSendBag.add(uploadImage(message).subscribe({ message ->
+//                        send(message)
+//                    }, {
+//                        messageFailed(message)
+//                    }))
+//                }
+//                VMMessageContent.Type.Video -> {
+//
+//                }
+//            }
+//        })
     }
 
     fun sendText(text: String) {
-        var msg: VMMessage? = null
-        Store.openRealm.executeTransactionAsync(Realm.Transaction { realm ->
-            val localId = UUID.randomUUID().toString()
-            val conversation = VMConversation.findBySid(realm, conversationId) ?: return@Transaction
-            val sender = VMContact.create(User.load()!!)
-            val textContent = VMMessageContentText.create(localId)
-            textContent.plainText = text
-            val message = VMMessage.createLocalMessage(localId, conversation, sender, textContent)
-            message.sendStatus = VMMessage.SendState.Processing
-            makeDisplayTime(message)
-            message.saveOrUpdate(realm)
-            activity?.get()?.showSendMessage(message)
-            msg = message
-        }, Realm.Transaction.OnSuccess {
-            msg?.let {
-                send(it)
-            }
-        })
+//        var msg: VMMessage? = null
+//        Store.openRealm.executeTransactionAsync(Realm.Transaction { realm ->
+//            val localId = UUID.randomUUID().toString()
+//            val conversation = VMConversation.findBySid(realm, conversationId) ?: return@Transaction
+//            val sender = VMContact.create(User.load()!!)
+//            val textContent = VMMessageContentText.create(localId)
+//            textContent.plainText = text
+//            val message = VMMessage.createLocalMessage(localId, conversation, sender, textContent)
+//            message.sendStatus = VMMessage.SendState.Processing
+//            makeDisplayTime(message)
+//            message.saveOrUpdate(realm)
+//            activity?.get()?.showSendMessage(message)
+//            msg = message
+//        }, Realm.Transaction.OnSuccess {
+//            msg?.let {
+//                send(it)
+//            }
+//        })
     }
 
 
@@ -413,26 +390,26 @@ internal class ChatViewModel {
     }
 
     private fun messageFailed(msg: VMMessage) {
-        Store.openRealm.executeTransactionAsync { realm ->
-            val exist = VMMessage.findBySid(realm, msg.sendLocalId)
-                    ?: return@executeTransactionAsync
-            if (exist.sendStatus == VMMessage.SendState.Processing) {
-                exist.sendStatus = VMMessage.SendState.Failure
-                exist.saveOrUpdate(realm)
-                activity?.get()?.updateMessages(listOf(exist))
-            }
-        }
+//        Store.openRealm.executeTransactionAsync { realm ->
+//            val exist = VMMessage.findBySid(realm, msg.sendLocalId)
+//                    ?: return@executeTransactionAsync
+//            if (exist.sendStatus == VMMessage.SendState.Processing) {
+//                exist.sendStatus = VMMessage.SendState.Failure
+//                exist.saveOrUpdate(realm)
+//                activity?.get()?.updateMessages(listOf(exist))
+//            }
+//        }
     }
 
     private fun makeDisplayTime(message: VMMessage) {
-        VMConversation.latestMessageTime[conversationId]?.let { time ->
-            if (message.time - time > VMMessage.displayTimeInterval) {
-                // 距上一条消息大于时间间隔，UI中需显示时间
-                message.displayTime = message.time
-            } else {
-                message.displayTime = 0
-            }
-        }
-        VMConversation.latestMessageTime[conversationId] = message.time
+//        VMConversation.latestMessageTime[conversationId]?.let { time ->
+//            if (message.time - time > VMMessage.displayTimeInterval) {
+//                // 距上一条消息大于时间间隔，UI中需显示时间
+//                message.displayTime = message.time
+//            } else {
+//                message.displayTime = 0
+//            }
+//        }
+//        VMConversation.latestMessageTime[conversationId] = message.time
     }
 }

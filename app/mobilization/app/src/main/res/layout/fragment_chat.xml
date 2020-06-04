@@ -33,6 +33,8 @@
 
     </LinearLayout>
 
+    <View style="@style/SplitH" />
+
     <FrameLayout
         android:id="@+id/iContentFrame"
         android:layout_width="match_parent"

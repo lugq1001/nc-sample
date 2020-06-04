@@ -13,8 +13,10 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.nextcont.mobilization.R
 import com.nextcont.mobilization.model.User
+import com.nextcont.mobilization.model.chat.VMContact
 import timber.log.Timber
 
 
@@ -35,14 +37,15 @@ class MeFragment : Fragment() {
         initCell(v, R.id.iAboutView, R.string.title_about, R.mipmap.ic_about) { about() }
         initCell(v, R.id.iLogoutView, R.string.me_logout, R.mipmap.ic_logout) { logout() }
 
-        User.load()?.let { u ->
-            v.findViewById<ImageView>(R.id.iAvatarImage).setImageDrawable(u.avatar)
-            v.findViewById<TextView>(R.id.iNameText).text = u.fullName
-            v.findViewById<TextView>(R.id.iBirthdayText).text = "${u.gender.string} ${u.birthday}"
-            v.findViewById<TextView>(R.id.iRoleText).text = u.role.string
-            v.findViewById<TextView>(R.id.iIdCardText).text = u.idCard
-        }
+        val contact = VMContact.testData(true)[0]
 
+        context?.let {
+            Glide.with(it).load(contact.avatar).into(v.findViewById(R.id.iAvatarImage))
+            v.findViewById<TextView>(R.id.iNameText).text = contact.nickname
+            v.findViewById<TextView>(R.id.iBirthdayText).text = "通信班"
+            v.findViewById<TextView>(R.id.iRoleText).text = contact.role
+            v.findViewById<TextView>(R.id.iIdCardText).text = "现役"
+        }
 
     }
 

@@ -22,15 +22,7 @@ class VMMessage: MultiItemEntity {
     /**
      * 本地标记id
      */
-    var sid: String = ""
-
-    /*本地发送id*/
-    var sendLocalId: String = ""
-
-    /**
-     * 所属会话
-     */
-    lateinit var conversation: VMConversation
+    var sid: String = UUID.randomUUID().toString()
 
     /**
      * 发送人
@@ -114,18 +106,30 @@ class VMMessage: MultiItemEntity {
         @SuppressLint("ConstantLocale")
         private val format = SimpleDateFormat("MM-dd HH:mm", Locale.getDefault())
 
-        fun createLocalMessage(localId: String, conversation: VMConversation, sender: VMContact, content: VMMessageContent): VMMessage {
-            val message = VMMessage()
-            message.localId = localId
-            message.sendLocalId = UUID.randomUUID().toString()
-            message.sid = message.sendLocalId
-            message.sender = sender
-            message.conversation = conversation
-            message.content = content
-            message.time = System.currentTimeMillis() * 1000
-            message.read = true
-            return message
-        }
+//        fun createLocalMessage(localId: String, conversation: VMConversation, sender: VMContact, content: VMMessageContent): VMMessage {
+//            val message = VMMessage()
+//            message.localId = localId
+//            message.sendLocalId = UUID.randomUUID().toString()
+//            message.sid = message.sendLocalId
+//            message.sender = sender
+//            message.conversation = conversation
+//            message.content = content
+//            message.time = System.currentTimeMillis() * 1000
+//            message.read = true
+//            return message
+//        }
+//        fun createLocalMessage(localId: String, conversation: VMConversation, sender: VMContact, content: VMMessageContent): VMMessage {
+//            val message = VMMessage()
+//            message.localId = localId
+//            message.sendLocalId = UUID.randomUUID().toString()
+//            message.sid = message.sendLocalId
+//            message.sender = sender
+//            message.conversation = conversation
+//            message.content = content
+//            message.time = System.currentTimeMillis() * 1000
+//            message.read = true
+//            return message
+//        }
 
 //        fun create(conversationId: String, event: NCChatProtocol.NctEvent): VMMessage? {
 //            if (event.id.isEmpty()) {
@@ -193,175 +197,175 @@ class VMMessage: MultiItemEntity {
 //            }
 //            return message
 //        }
-
-        /**
-         * 保存、更新消息至DB
-         */
-        fun saveOrUpdate(realm: Realm, messages: List<VMMessage>) {
-            val entities = mutableListOf<RealmObject>()
-            for (m in messages) {
-                val query = realm.where(ENMessage::class.java)
-                query.equalTo("sid", m.sid)
-                var en = query.findFirst()
-                if (en == null) {
-                    en = ENMessage()
-                    en.id = m.localId
-                    en.senderId = m.sender.sid
-                    en.sendLocalId = m.sendLocalId
-                    en.conversationId = m.conversation.sid
-                    en.contentType = m.content.type.code
-                    en.displayTime = m.displayTime
-                }
-                when (m.content.type) {
-                    VMMessageContent.Type.Text -> {
-                        val text = m.content as VMMessageContentText
-                        text.saveOrUpdate(realm)
-                    }
-                    VMMessageContent.Type.Image -> {
-                        val image = m.content as VMMessageContentImage
-                        image.saveOrUpdate(realm)
-                    }
-                    VMMessageContent.Type.Video -> {
-                        val video = m.content as VMMessageContentVideo
-                        video.saveOrUpdate(realm)
-                    }
-                    VMMessageContent.Type.Voice -> {
-                        val voice = m.content as VMMessageContentVoice
-                        voice.saveOrUpdate(realm)
-                    }
-                }
-                en.sid = m.sid //本地发送的sid发送成功会变，需更新
-                en.time = m.time
-                en.sendStatus = m.sendStatus.code
-                en.read = m.read
-                entities.add(en)
-            }
-            if (entities.isNotEmpty()) {
-                realm.insertOrUpdate(entities)
-            }
-        }
-
-        fun findBySid(realm: Realm, sid: String): VMMessage? {
-            val query = realm.where(ENMessage::class.java)
-            query.equalTo("sid", sid)
-            query.findFirst()?.let {
-                return convert(realm, it)
-            }
-            return null
-        }
-
-        /**
-         * 消息列表
-         */
-        fun findAll(realm: Realm, conversationId: String, page: Int, pageSize: Int = 20): List<VMMessage> {
-            val messages = mutableListOf<VMMessage>()
-            val query = realm.where(ENMessage::class.java)
-            query.equalTo("conversationId", conversationId).sort("time", Sort.DESCENDING).distinct("sid")
-            val result = query.findAll()
-            if (result.isEmpty()) {
-                return messages
-            }
-            val start = page * pageSize
-            val end = result.size.coerceAtMost(start + pageSize)
-            loop@ for (i in start until end) {
-                val en = result[i] ?: continue
-                val m = convert(realm, en) ?: continue
-                messages.add(m)
-            }
-            return messages.reversed()
-        }
-
-        fun countUnread(realm: Realm, conversationId: String): Long {
-            val query = realm.where(ENMessage::class.java)
-            query.equalTo("conversationId", conversationId)
-            query.equalTo("read", false)
-            return query.count()
-        }
-
-        fun allRead(realm: Realm, conversationId: String): Set<String> {
-            val ids = mutableSetOf<String>()
-            val query = realm.where(ENMessage::class.java)
-            query.equalTo("conversationId", conversationId)
-            query.equalTo("read", false)
-            val result = query.findAll()
-            result.forEach {
-                it.read = true
-                ids.add(it.sid)
-            }
-            realm.insertOrUpdate(result)
-            return ids
-        }
-
-        fun allRead(realm: Realm, messageIds: Set<String>) {
-            messageIds.forEach { id ->
-                val query = realm.where(ENMessage::class.java)
-                query.equalTo("sid", id)
-                val result = query.findFirst()
-                result?.let {
-                    it.read = true
-                    realm.insertOrUpdate(it)
-                }
-            }
-        }
-
-        private fun convert(realm: Realm, en: ENMessage): VMMessage? {
-            val conversation = VMConversation.findBySid(realm, en.conversationId) ?: return null
-            val sender = VMContact.findBySid(realm, en.senderId) ?: return null
-            val m = VMMessage()
-            m.localId = en.id
-            m.sid = en.sid
-            m.displayTime = en.displayTime
-            m.sendStatus = SendState.form(en.sendStatus)
-            m.read = en.read
-            m.time = en.time
-            m.sendLocalId = en.sendLocalId
-            val content = when (VMMessageContent.Type.from(en.contentType)) {
-                VMMessageContent.Type.Text -> {
-                    VMMessageContentText.find(realm, m.localId) ?: return null
-                }
-                VMMessageContent.Type.Image -> {
-                    VMMessageContentImage.find(realm, m.localId) ?: return null
-                }
-                VMMessageContent.Type.Video -> {
-                    VMMessageContentVideo.find(realm, m.localId) ?: return null
-                }
-                VMMessageContent.Type.Voice -> {
-                    VMMessageContentVoice.find(realm, m.localId) ?: return null
-                }
-            }
-            m.content = content
-            m.conversation = conversation
-            m.sender = sender
-            return m
-        }
-
-        fun findLatest(realm: Realm, conversationId: String): VMMessage? {
-            val query = realm.where(ENMessage::class.java)
-            query.equalTo("conversationId", conversationId).sort("time", Sort.DESCENDING)
-            query.findFirst()?.let {
-                convert(realm, it)?.let { result ->
-                    return result
-                }
-            }
-            return null
-        }
-
-        fun resetSendStateInConversation(realm: Realm, conversationId: String) {
-            val query = realm.where(ENMessage::class.java)
-            query.equalTo("conversationId", conversationId)
-            query.equalTo("sendStatus", SendState.Processing.code)
-            val result = query.findAll()
-            result.forEach {
-                it.sendStatus = SendState.Failure.code
-            }
-            realm.insertOrUpdate(result)
-        }
+//
+//        /**
+//         * 保存、更新消息至DB
+//         */
+//        fun saveOrUpdate(realm: Realm, messages: List<VMMessage>) {
+//            val entities = mutableListOf<RealmObject>()
+//            for (m in messages) {
+//                val query = realm.where(ENMessage::class.java)
+//                query.equalTo("sid", m.sid)
+//                var en = query.findFirst()
+//                if (en == null) {
+//                    en = ENMessage()
+//                    en.id = m.localId
+//                    en.senderId = m.sender.sid
+//                    en.sendLocalId = m.sendLocalId
+//                    en.conversationId = m.conversation.sid
+//                    en.contentType = m.content.type.code
+//                    en.displayTime = m.displayTime
+//                }
+//                when (m.content.type) {
+//                    VMMessageContent.Type.Text -> {
+//                        val text = m.content as VMMessageContentText
+//                        text.saveOrUpdate(realm)
+//                    }
+//                    VMMessageContent.Type.Image -> {
+//                        val image = m.content as VMMessageContentImage
+//                        image.saveOrUpdate(realm)
+//                    }
+//                    VMMessageContent.Type.Video -> {
+//                        val video = m.content as VMMessageContentVideo
+//                        video.saveOrUpdate(realm)
+//                    }
+//                    VMMessageContent.Type.Voice -> {
+//                        val voice = m.content as VMMessageContentVoice
+//                        voice.saveOrUpdate(realm)
+//                    }
+//                }
+//                en.sid = m.sid //本地发送的sid发送成功会变，需更新
+//                en.time = m.time
+//                en.sendStatus = m.sendStatus.code
+//                en.read = m.read
+//                entities.add(en)
+//            }
+//            if (entities.isNotEmpty()) {
+//                realm.insertOrUpdate(entities)
+//            }
+//        }
+//
+//        fun findBySid(realm: Realm, sid: String): VMMessage? {
+//            val query = realm.where(ENMessage::class.java)
+//            query.equalTo("sid", sid)
+//            query.findFirst()?.let {
+//                return convert(realm, it)
+//            }
+//            return null
+//        }
+//
+//        /**
+//         * 消息列表
+//         */
+//        fun findAll(realm: Realm, conversationId: String, page: Int, pageSize: Int = 20): List<VMMessage> {
+//            val messages = mutableListOf<VMMessage>()
+//            val query = realm.where(ENMessage::class.java)
+//            query.equalTo("conversationId", conversationId).sort("time", Sort.DESCENDING).distinct("sid")
+//            val result = query.findAll()
+//            if (result.isEmpty()) {
+//                return messages
+//            }
+//            val start = page * pageSize
+//            val end = result.size.coerceAtMost(start + pageSize)
+//            loop@ for (i in start until end) {
+//                val en = result[i] ?: continue
+//                val m = convert(realm, en) ?: continue
+//                messages.add(m)
+//            }
+//            return messages.reversed()
+//        }
+//
+//        fun countUnread(realm: Realm, conversationId: String): Long {
+//            val query = realm.where(ENMessage::class.java)
+//            query.equalTo("conversationId", conversationId)
+//            query.equalTo("read", false)
+//            return query.count()
+//        }
+//
+//        fun allRead(realm: Realm, conversationId: String): Set<String> {
+//            val ids = mutableSetOf<String>()
+//            val query = realm.where(ENMessage::class.java)
+//            query.equalTo("conversationId", conversationId)
+//            query.equalTo("read", false)
+//            val result = query.findAll()
+//            result.forEach {
+//                it.read = true
+//                ids.add(it.sid)
+//            }
+//            realm.insertOrUpdate(result)
+//            return ids
+//        }
+//
+//        fun allRead(realm: Realm, messageIds: Set<String>) {
+//            messageIds.forEach { id ->
+//                val query = realm.where(ENMessage::class.java)
+//                query.equalTo("sid", id)
+//                val result = query.findFirst()
+//                result?.let {
+//                    it.read = true
+//                    realm.insertOrUpdate(it)
+//                }
+//            }
+//        }
+//
+//        private fun convert(realm: Realm, en: ENMessage): VMMessage? {
+//            val conversation = VMConversation.findBySid(realm, en.conversationId) ?: return null
+//            val sender = VMContact.findBySid(realm, en.senderId) ?: return null
+//            val m = VMMessage()
+//            m.localId = en.id
+//            m.sid = en.sid
+//            m.displayTime = en.displayTime
+//            m.sendStatus = SendState.form(en.sendStatus)
+//            m.read = en.read
+//            m.time = en.time
+//            m.sendLocalId = en.sendLocalId
+//            val content = when (VMMessageContent.Type.from(en.contentType)) {
+//                VMMessageContent.Type.Text -> {
+//                    VMMessageContentText.find(realm, m.localId) ?: return null
+//                }
+//                VMMessageContent.Type.Image -> {
+//                    VMMessageContentImage.find(realm, m.localId) ?: return null
+//                }
+//                VMMessageContent.Type.Video -> {
+//                    VMMessageContentVideo.find(realm, m.localId) ?: return null
+//                }
+//                VMMessageContent.Type.Voice -> {
+//                    VMMessageContentVoice.find(realm, m.localId) ?: return null
+//                }
+//            }
+//            m.content = content
+//            m.conversation = conversation
+//            m.sender = sender
+//            return m
+//        }
+//
+//        fun findLatest(realm: Realm, conversationId: String): VMMessage? {
+//            val query = realm.where(ENMessage::class.java)
+//            query.equalTo("conversationId", conversationId).sort("time", Sort.DESCENDING)
+//            query.findFirst()?.let {
+//                convert(realm, it)?.let { result ->
+//                    return result
+//                }
+//            }
+//            return null
+//        }
+//
+//        fun resetSendStateInConversation(realm: Realm, conversationId: String) {
+//            val query = realm.where(ENMessage::class.java)
+//            query.equalTo("conversationId", conversationId)
+//            query.equalTo("sendStatus", SendState.Processing.code)
+//            val result = query.findAll()
+//            result.forEach {
+//                it.sendStatus = SendState.Failure.code
+//            }
+//            realm.insertOrUpdate(result)
+//        }
 
     }
 
-    fun saveOrUpdate(realm: Realm) {
-        return saveOrUpdate(realm, listOf(this))
-    }
+//    fun saveOrUpdate(realm: Realm) {
+//        return saveOrUpdate(realm, listOf(this))
+//    }
 
 
 
