@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/container"
-    android:orientation="vertical"
-    tools:context=".ui.fragment.EvaluationFragment">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/iDailyView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3">
+        android:layout_weight="0.25">
 
         <ImageView
             android:contentDescription="@null"
@@ -43,7 +42,7 @@
         android:id="@+id/iAdditionView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3">
+        android:layout_weight="0.25">
 
         <ImageView
             android:contentDescription="@null"
@@ -71,10 +70,42 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/iPsychologicalView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25">
+
+        <ImageView
+            android:contentDescription="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_trains_psychological" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/layerBlackLight" />
+
+        <TextView
+            style="@style/TextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/spacing_h_1"
+            android:text="心理评估"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_banner"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.4"
+        android:layout_weight="0.25"
         tools:ignore="UselessLeaf" />
 
 

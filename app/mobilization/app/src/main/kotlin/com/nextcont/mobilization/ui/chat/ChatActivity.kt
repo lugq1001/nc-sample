@@ -414,7 +414,7 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
         }
     }
 
-    fun updateMessages(messages: List<VMMessage>) {
+    private fun updateMessages(messages: List<VMMessage>) {
         handler.post {
             messages.forEach { message ->
                 val index = this.adapter.data.indexOfFirst {
@@ -442,7 +442,14 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
         }
         resetPlayingVoice {
             playingVoiceId = message.sid
-            viewModel.playVoice(message)
+            val voice = message.content as? VMMessageContentVoice ?: return@resetPlayingVoice
+            voice.played = true
+            message.content = voice
+            updateMessages(listOf(message))
+            voicePlay(message)
+            if (message.sid == VMConversation.MESSAGE_ID_VOICE) {
+                (VMConversation.messages[VMConversation.CONVERSION_ID_GROUP]!!.first().content as VMMessageContentVoice).played = true
+            }
         }
     }
 

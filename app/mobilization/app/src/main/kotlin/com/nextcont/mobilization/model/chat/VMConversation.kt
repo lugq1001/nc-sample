@@ -39,7 +39,8 @@ class VMConversation {
         val conversions = mutableListOf<VMConversation>()
         val messages = mutableMapOf<String, MutableList<VMMessage>>()
 
-        private const val CONVERSION_ID_GROUP = "CONVERSION_ID_GROUP"
+        const val CONVERSION_ID_GROUP = "CONVERSION_ID_GROUP"
+        const val MESSAGE_ID_VOICE = "MESSAGE_VOICE"
 
         fun init() {
             // 系统通知
@@ -63,16 +64,21 @@ class VMConversation {
             personal.activeTime = System.currentTimeMillis() - 3600 * 3
             personal.hasUnreadMessage = true
 
-
             conversions.add(personal)
-
-
-
-
 
         }
 
         private fun groupMessage(): MutableList<VMMessage> {
+            // 图片消息
+            val msgVideo = VMMessage()
+            msgVideo.sender = VMContact.testData(true)[3]
+            msgVideo.sendStatus = VMMessage.SendState.Success
+            msgVideo.read = false
+            msgVideo.displayTime = System.currentTimeMillis() - 3600 * 5
+            val video = VMMessageContentVideo()
+            video.localPath = copyVideo()
+            msgVideo.content = video
+
             // 图片消息
             val msgImg = VMMessage()
             msgImg.sender = VMContact.testData(true)[3]
@@ -86,6 +92,7 @@ class VMConversation {
 
             // 语音消息
             val msgVoice = VMMessage()
+            msgVoice.sid = MESSAGE_ID_VOICE
             msgVoice.sender = VMContact.testData(true)[3]
             msgVoice.sendStatus = VMMessage.SendState.Success
             msgVoice.read = false
@@ -93,10 +100,8 @@ class VMConversation {
             val voice = VMMessageContentVoice()
             voice.localPath = copyVoice()
             voice.duration = 15
-            voice.played = true
+            voice.played = false
             msgVoice.content = voice
-
-
 
             val msg1 = VMMessage()
             msg1.sender = VMContact.testData(true)[3]
@@ -134,7 +139,7 @@ class VMConversation {
             text4.plainText = "收到"
             msg4.content = text4
 
-            return mutableListOf(msgVoice, msgImg, msg1, msg2, msg3, msg4)
+            return mutableListOf(msgVoice, msgImg, msgVideo, msg1, msg2, msg3, msg4)
         }
 
         fun create(c: VMContact): VMConversation {
@@ -149,7 +154,12 @@ class VMConversation {
 
         private fun copyVoice(): String {
             val path = "${PathProvider.path()}${File.separator}test.amr"
+            val file = File(path)
+            if (file.exists() && file.isFile) {
+                return path
+            }
             try {
+
                 val stream: InputStream = MobApp.Shared.assets.open("gs-16b-1c-8000hz.amr")
                 val output: OutputStream = BufferedOutputStream(FileOutputStream(path))
                 val data = ByteArray(1024)
@@ -166,6 +176,28 @@ class VMConversation {
             return path
         }
 
+        private fun copyVideo(): String {
+            val path = "${PathProvider.path()}${File.separator}video.mp4"
+            val file = File(path)
+            if (file.exists() && file.isFile) {
+                return path
+            }
+            try {
+                val stream: InputStream = MobApp.Shared.assets.open("small.mp4")
+                val output: OutputStream = BufferedOutputStream(FileOutputStream(path))
+                val data = ByteArray(1024)
+                var count: Int
+                while (stream.read(data).also { count = it } != -1) {
+                    output.write(data, 0, count)
+                }
+                output.flush()
+                output.close()
+                stream.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            return path
+        }
     }
 
 

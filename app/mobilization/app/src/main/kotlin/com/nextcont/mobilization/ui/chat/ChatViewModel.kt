@@ -1,18 +1,14 @@
 package com.nextcont.mobilization.ui.chat
 
-import com.blankj.utilcode.util.FileUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.nextcont.mobilization.R
-import com.nextcont.mobilization.model.User
-import com.nextcont.mobilization.model.chat.*
-import com.nextcont.mobilization.store.Store
+import com.nextcont.mobilization.model.chat.VMConversation
+import com.nextcont.mobilization.model.chat.VMMessage
+import com.nextcont.mobilization.model.chat.VMMessageContentImage
+import com.nextcont.mobilization.model.chat.VMMessageContentVoice
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import io.realm.Realm
 import java.io.File
 import java.lang.ref.WeakReference
-import java.util.*
 
 internal class ChatViewModel {
 
@@ -91,91 +87,6 @@ internal class ChatViewModel {
 //        }
     }
 
-    //==============================================
-    // 播放语音
-    //==============================================
-    fun playVoice(message: VMMessage) {
-        val scheduler = Schedulers.computation()
-        val voice = message.content as? VMMessageContentVoice ?: return
-        voice.loading = true
-        disposableBag.add(setVoicePlayed(voice).subscribeOn(scheduler).flatMap { v ->
-            message.content = v
-            activity?.get()?.updateMessages(listOf(message))
-            getVoicePath(voice)
-        }.subscribe({ v ->
-            v.loading = false
-            message.content = v
-            activity?.get()?.voicePlay(message)
-        }, { throwable ->
-            activity?.get()?.voiceLoadingFailed(throwable.localizedMessage)
-        }))
-    }
-
-    private fun setVoicePlayed(voice: VMMessageContentVoice): Single<VMMessageContentVoice> {
-        return Single.create { emitter ->
-            if (voice.played) {
-                emitter.onSuccess(voice)
-                return@create
-            }
-            emitter.onSuccess(voice)
-        }
-    }
-
-    private fun getVoicePath(voice: VMMessageContentVoice): Single<VMMessageContentVoice> {
-        if (voice.localPath.isNotEmpty()) {
-            val file = File(voice.localPath)
-            if (file.exists() && file.isFile) {
-                return Single.just(voice)
-            }
-        }
-        if (voice.downloadUrl.isNotEmpty()) {
-            return voiceDownload(voice)
-        }
-        return getVoiceDownloadUrl(voice).flatMap { msg ->
-            voiceDownload(msg)
-        }
-    }
-
-    // TODO 获取语音下载地址
-    private fun getVoiceDownloadUrl(voice: VMMessageContentVoice): Single<VMMessageContentVoice> {
-        return Single.create { emitter ->
-           emitter.onSuccess(voice)
-        }
-    }
-
-    // TODO 下载语音
-    private fun voiceDownload(voice: VMMessageContentVoice): Single<VMMessageContentVoice> {
-        return Single.create { emitter ->
-//            val name = "${UUID.randomUUID()}.amr"
-//            val tempPath = "${PathProvider.tempFolder(PathProvider.FileType.Voice)}${File.separator}$name"
-//            val filePath = "${PathProvider.downloadFolder(PathProvider.FileType.Voice)}${File.separator}$name"
-//            disposableBag.add(NCApi.render.download(voice.downloadUrl, tempPath).subscribe({
-//                Logger.d("下载进度: ${it.percent}")
-//            }, {
-//                emitter.onError(it)
-//            }, {
-//                // 下载成功
-//                if (!FileUtils.move(tempPath, filePath)) {
-//                    emitter.onError(Throwable("Download Failed."))
-//                    return@subscribe
-//                }
-//                var rm: Realm? = null
-//                try {
-//                    rm = Store.getRealm
-//                    rm.executeTransaction {
-//                        voice.localPath = filePath
-//                        voice.saveOrUpdate(it)
-//                    }
-//                } catch (e: Exception) {
-//
-//                } finally {
-//                    Store.closeRealm(rm)
-//                    emitter.onSuccess(voice)
-//                }
-//
-//            }))
-        }
-    }
 
     //==============================================
     // 发送文字消息
