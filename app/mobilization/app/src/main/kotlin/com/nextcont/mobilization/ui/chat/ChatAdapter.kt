@@ -6,6 +6,7 @@ import android.view.View
 import android.view.View.*
 import android.widget.*
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.nextcont.mobilization.R
@@ -38,6 +39,7 @@ internal class ChatAdapter : BaseMultiItemQuickAdapter<VMMessage, ChatAdapter.Ch
         holder.iContentImageWrapper.visibility = GONE
         holder.iContentVideoWrapper.visibility = GONE
         holder.iContentVoiceWrapper.visibility = GONE
+        holder.iBurnTextWrapper.visibility = GONE
         holder.iLoadingProgress?.visibility = GONE
 
         val time = item.displayTime
@@ -48,47 +50,65 @@ internal class ChatAdapter : BaseMultiItemQuickAdapter<VMMessage, ChatAdapter.Ch
             holder.iTimeText.text = item.formatTime
         }
 
-        val content = item.content
-        when (content.type) {
-            VMMessageContent.Type.Text -> {
-                val textContent = item.content as VMMessageContentText
-                holder.iContentTextWrapper.visibility = VISIBLE
-                holder.iContextText.text = textContent.plainText
+        if (item.burn) {
+            holder.iBurnTextWrapper.visibility = VISIBLE
+            if (item.read) {
+                holder.iLockIcon.visibility = GONE
+                holder.iFireIcon.visibility = GONE
+                holder.iBurnText.text = "该消息已阅"
+                holder.iBurnText.setTextColor(ContextCompat.getColor(context, R.color.danger))
+            } else {
+                holder.iLockIcon.visibility = VISIBLE
+                holder.iFireIcon.visibility = VISIBLE
+                holder.iBurnText.text = "私密消息 阅后即焚"
+                holder.iBurnText.setTextColor(ContextCompat.getColor(context, R.color.textLight))
             }
-            VMMessageContent.Type.Image -> {
-                val imageContent = item.content as VMMessageContentImage
-                holder.iContentImageWrapper.visibility = VISIBLE
+        } else {
+            holder.iBurnTextWrapper.visibility = GONE
+            val content = item.content
+            when (content.type) {
+                VMMessageContent.Type.Text -> {
+                    val textContent = item.content as VMMessageContentText
+                    holder.iContentTextWrapper.visibility = VISIBLE
+                    holder.iContextText.text = textContent.plainText
+                }
+                VMMessageContent.Type.Image -> {
+                    val imageContent = item.content as VMMessageContentImage
+                    holder.iContentImageWrapper.visibility = VISIBLE
 
-                holder.iContextImagePlaceholder.setImageDrawable(getImagePlaceholder(context))
-                holder.iContextImagePlaceholder.visibility = VISIBLE
-                ImageProvider.loadImageWithResult(context, imageContent.getThumbnailUrl, holder.iContextImage, completion = {
-                    holder.iContextImagePlaceholder.visibility = GONE
-                    imageLoadedSubject.onNext(Unit)
-                })
+                    holder.iContextImagePlaceholder.setImageDrawable(getImagePlaceholder(context))
+                    holder.iContextImagePlaceholder.visibility = VISIBLE
+                    ImageProvider.loadImageWithResult(context, imageContent.getThumbnailUrl, holder.iContextImage, completion = {
+                        holder.iContextImagePlaceholder.visibility = GONE
+                        imageLoadedSubject.onNext(Unit)
+                    })
 
-            }
-            VMMessageContent.Type.Video -> {
-                holder.iContentVideoWrapper.visibility = VISIBLE
-                holder.iContextVideoIcon.setImageDrawable(getVideoPlaceholder(context))
-            }
-            VMMessageContent.Type.Voice -> {
-                val voiceContent = item.content as VMMessageContentVoice
-                holder.iContentVoiceWrapper.visibility = VISIBLE
-                holder.iVoiceLengthText.text = voiceContent.durationPlaceholder
-                holder.iDurationText.text = voiceContent.displayDuration
-                holder.iVoiceBadge?.visibility = if (voiceContent.played) GONE else VISIBLE
-                holder.iVoiceProgress?.visibility = if (voiceContent.loading) VISIBLE else GONE
+                }
+                VMMessageContent.Type.Video -> {
+                    holder.iContentVideoWrapper.visibility = VISIBLE
+                    holder.iContextVideoIcon.setImageDrawable(getVideoPlaceholder(context))
+                }
+                VMMessageContent.Type.Voice -> {
+                    val voiceContent = item.content as VMMessageContentVoice
+                    holder.iContentVoiceWrapper.visibility = VISIBLE
+                    holder.iVoiceLengthText.text = voiceContent.durationPlaceholder
+                    holder.iDurationText.text = voiceContent.displayDuration
+                    holder.iVoiceBadge?.visibility = if (voiceContent.played) GONE else VISIBLE
+                    holder.iVoiceProgress?.visibility = if (voiceContent.loading) VISIBLE else GONE
 
-                when (holder.itemViewType) {
-                    0 -> {
-                        holder.iVolumeImage.setImageDrawable(getVolumeIconRight(context).last())
-                    }
-                    1 -> {
-                        holder.iVolumeImage.setImageDrawable(getVolumeIconLeft(context).last())
+                    when (holder.itemViewType) {
+                        0 -> {
+                            holder.iVolumeImage.setImageDrawable(getVolumeIconRight(context).last())
+                        }
+                        1 -> {
+                            holder.iVolumeImage.setImageDrawable(getVolumeIconLeft(context).last())
+                        }
                     }
                 }
             }
         }
+
+
 
         when (item.sendStatus) {
             VMMessage.SendState.Success -> {
@@ -117,6 +137,12 @@ internal class ChatAdapter : BaseMultiItemQuickAdapter<VMMessage, ChatAdapter.Ch
         val iWarningImage: ImageView? = view.findViewById(R.id.iWarningImage)
 
         val iLoadingProgress: ProgressBar? = view.findViewById(R.id.iLoadingProgress)
+
+        /*私密文本*/
+        val iBurnTextWrapper: LinearLayout = view.findViewById(R.id.iBurnTextWrapper)
+        val iBurnText: TextView = view.findViewById(R.id.iBurnText)
+        val iLockIcon: ImageView = view.findViewById(R.id.iLockIcon)
+        val iFireIcon: ImageView = view.findViewById(R.id.iFireIcon)
 
         /*文本*/
         val iContentTextWrapper: LinearLayout = view.findViewById(R.id.iContentTextWrapper)

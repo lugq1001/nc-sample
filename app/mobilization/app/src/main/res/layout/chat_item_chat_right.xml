@@ -81,6 +81,45 @@
             android:layout_marginEnd="@dimen/nc_widget_spacing"
             android:layout_toStartOf="@+id/iAvatarWrapper">
 
+            <!-- 文本 -->
+            <LinearLayout
+                android:id="@+id/iBurnTextWrapper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/nc_widget_spacing"
+                android:background="@drawable/nc_chat_selector_bg_content_text_left"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/iLockIcon"
+                    style="@style/Icon"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/spacing_h_0"
+                    android:src="@mipmap/ic_lock" />
+
+                <TextView
+                    android:id="@+id/iBurnText"
+                    style="@style/TextTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:maxWidth="@dimen/chat_item_content_max_width"
+                    android:minWidth="@dimen/chat_item_avatar_size"
+                    android:minHeight="@dimen/chat_item_avatar_size"
+                    android:padding="@dimen/chat_item_content_text_padding"
+                    android:text="私密消息 阅后即焚" />
+
+                <ImageView
+                    android:id="@+id/iFireIcon"
+                    style="@style/Icon"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/spacing_h_0"
+                    android:src="@mipmap/ic_fire" />
+
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/iContentTextWrapper"

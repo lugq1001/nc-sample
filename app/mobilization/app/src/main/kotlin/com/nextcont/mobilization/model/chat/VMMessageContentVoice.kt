@@ -1,9 +1,11 @@
 package com.nextcont.mobilization.model.chat
 
 import com.nextcont.mobilization.store.entity.ENVoiceContent
+import com.squareup.moshi.JsonClass
 import io.realm.Realm
 import kotlin.math.max
 
+@JsonClass(generateAdapter = true)
 class VMMessageContentVoice: VMMessageContent() {
 
     override val type = Type.Voice

@@ -1,14 +1,21 @@
 package com.nextcont.mobilization.widget
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.nextcont.mobilization.R
+import com.nextcont.mobilization.service.LocationService
+import com.nextcont.mobilization.ui.main.MainActivity
 import com.nextcont.mobilization.util.DrawableUtils
 import java.lang.ref.WeakReference
 
@@ -87,6 +94,10 @@ internal class ChatInputBar @JvmOverloads constructor(
 
     private fun toggleInputMode() {
         if (textMode) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                ToastUtils.showShort("没有录音权限")
+                return
+            }
             // 切换语音模式
             KeyboardUtils.hideSoftInput(iContentEdit)
             iToggleButton.setImageDrawable(getKeyboardIcon())

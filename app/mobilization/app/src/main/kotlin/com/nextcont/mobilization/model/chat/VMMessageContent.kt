@@ -4,6 +4,7 @@ import com.nextcont.mobilization.store.entity.ENImageContent
 import com.nextcont.mobilization.store.entity.ENTextContent
 import com.nextcont.mobilization.store.entity.ENVideoContent
 import com.nextcont.mobilization.store.entity.ENVoiceContent
+import com.squareup.moshi.JsonClass
 import io.realm.Realm
 
 abstract class VMMessageContent {

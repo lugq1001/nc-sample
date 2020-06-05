@@ -1,9 +1,11 @@
 package com.nextcont.mobilization.model.chat
 
 import com.nextcont.mobilization.store.entity.ENImageContent
+import com.squareup.moshi.JsonClass
 import io.realm.Realm
 import java.io.File
 
+@JsonClass(generateAdapter = true)
 class VMMessageContentImage : VMMessageContent() {
 
     override val type = Type.Image

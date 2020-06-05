@@ -54,7 +54,7 @@ class ChatRecentFragment : Fragment() {
 
             }
         }
-        disposableBag.add(ChatActivity.closeMonitor.subscribeOn(AndroidSchedulers.mainThread()).subscribe {
+        disposableBag.add(ChatActivity.updateMonitor.subscribeOn(AndroidSchedulers.mainThread()).subscribe {
             val cons = VMConversation.conversions
             adapter.setList(cons)
         })

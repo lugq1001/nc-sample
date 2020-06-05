@@ -1,8 +1,10 @@
 package com.nextcont.mobilization.model.chat
 
 import com.nextcont.mobilization.store.entity.ENVideoContent
+import com.squareup.moshi.JsonClass
 import io.realm.Realm
 
+@JsonClass(generateAdapter = true)
 class VMMessageContentVideo : VMMessageContent() {
 
     override val type = Type.Video

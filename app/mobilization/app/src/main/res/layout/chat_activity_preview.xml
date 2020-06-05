@@ -14,6 +14,7 @@
             android:id="@+id/iCloseButton"
             android:layout_width="@dimen/nc_common_image_button_size"
             android:layout_height="@dimen/nc_common_image_button_size"
+            android:background="@android:color/transparent"
             android:contentDescription="@null" />
 
     </LinearLayout>
@@ -46,8 +47,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/nc_widget_spacing"
             android:indeterminate="true"
-            android:visibility="gone"
-            android:indeterminateTint="@android:color/white" />
+            android:indeterminateTint="@android:color/white"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/iTipsText"
@@ -60,6 +61,21 @@
             android:clickable="true"
             android:focusable="true"
             android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/iContentText"
+            style="@style/TextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/nc_view_spacing_large"
+            android:layout_marginEnd="@dimen/nc_view_spacing_large"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_banner"
+            android:visibility="gone" />
 
 
     </RelativeLayout>
@@ -75,11 +91,18 @@
             style="@style/TextButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             android:text="保存至相册"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/iVoiceButton"
+        style="@style/Button"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="播放语音" />
 
 </RelativeLayout>

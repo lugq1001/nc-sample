@@ -24,6 +24,7 @@ import com.nextcont.mobilization.service.ImageProvider
 import com.nextcont.mobilization.ui.me.CheckInRecordActivity
 import com.nextcont.mobilization.ui.me.MeFragment
 import com.nextcont.mobilization.ui.news.NewsFragment
+import com.nextcont.mobilization.util.DialogUtil
 import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.fragment_chat_contact.*
 import timber.log.Timber
@@ -100,6 +101,10 @@ class ChatContactFragment : Fragment() {
 
     private fun startChat(contact: VMContact) {
         Timber.i("$contact")
+        if (contact.sid == VMContact.self.sid) {
+            DialogUtil.showAlert(context!!, "无法发消息给自己。")
+            return
+        }
         val act = activity ?: return
         val intent = Intent(act, ChatActivity::class.java)
         val json = Moshi.Builder().build()

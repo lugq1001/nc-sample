@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import com.nextcont.mobilization.R
+import com.nextcont.mobilization.util.DialogUtil
 
 
 class TrainsFragment : Fragment() {
@@ -29,6 +30,11 @@ class TrainsFragment : Fragment() {
         }
         view.findViewById<RelativeLayout>(R.id.iAdditionView).setOnClickListener {
             showTrans(TRANS_TYPE_ADDITION)
+        }
+        view.findViewById<RelativeLayout>(R.id.iPsychologicalView).setOnClickListener {
+            activity?.let {
+                DialogUtil.showAlert(it, "该模块暂未开放，敬请期待。")
+            }
         }
         return view
     }

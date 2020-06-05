@@ -41,7 +41,7 @@ class MeFragment : Fragment() {
 
         context?.let {
             Glide.with(it).load(contact.avatar).into(v.findViewById(R.id.iAvatarImage))
-            v.findViewById<TextView>(R.id.iNameText).text = contact.nickname
+            v.findViewById<TextView>(R.id.iNameText).text = "徐思兵"
             v.findViewById<TextView>(R.id.iBirthdayText).text = "通信班"
             v.findViewById<TextView>(R.id.iRoleText).text = contact.role
             v.findViewById<TextView>(R.id.iIdCardText).text = "现役"

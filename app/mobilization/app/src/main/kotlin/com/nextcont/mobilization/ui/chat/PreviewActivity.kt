@@ -2,11 +2,9 @@ package com.nextcont.mobilization.ui.chat
 
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.*
@@ -15,12 +13,14 @@ import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.github.chrisbanes.photoview.PhotoView
 import com.nextcont.mobilization.R
-import com.nextcont.mobilization.model.chat.VMMessage
-import com.nextcont.mobilization.model.chat.VMMessageContent
-import com.nextcont.mobilization.model.chat.VMMessageContentImage
+import com.nextcont.mobilization.model.User
+import com.nextcont.mobilization.model.chat.*
 import com.nextcont.mobilization.service.ImageProvider
+import com.nextcont.mobilization.service.recording.Recording
+import com.nextcont.mobilization.service.recording.RecordingPlayer
 import com.nextcont.mobilization.util.DrawableUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.io.File
@@ -30,11 +30,12 @@ import java.util.concurrent.TimeUnit
 /**
  * 图片、视频消息预览
  */
-internal class PreviewActivity : AppCompatActivity() {
+internal class PreviewActivity : AppCompatActivity(), Recording.RecordingProtocol,
+    RecordingPlayer.RecordingPlayerProtocol {
 
     companion object {
         private var closeIcon: Drawable? = null
-        const val INTENT_KEY_MESSAGE_ID = "MESSAGE_ID"
+        lateinit var message: VMMessage
     }
 
     private val disposableBag = CompositeDisposable()
@@ -43,14 +44,19 @@ internal class PreviewActivity : AppCompatActivity() {
 
     private val handler = Handler()
 
-    private lateinit var messageId: String
-
     private lateinit var iPreviewImage: PhotoView
     private lateinit var iPreviewVideo: VideoView
     private lateinit var iPreviewProgress: ProgressBar
     private lateinit var iCloseButton: ImageButton
     private lateinit var iTipsText: TextView
     private lateinit var iSaveButton: Button
+    private lateinit var iContentText: TextView
+    private lateinit var iVoiceButton: Button
+
+    // 正在播放的语音消息id
+    private var playingVoiceId = ""
+    private lateinit var recording: Recording
+    private lateinit var recordingPlayer: RecordingPlayer
 
     private val saveSubject = PublishSubject.create<Unit>()
 
@@ -61,15 +67,9 @@ internal class PreviewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            // 显示status bar文字为白色
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        }
         setContentView(R.layout.chat_activity_preview)
 
-        messageId = intent.getStringExtra(INTENT_KEY_MESSAGE_ID)
-
-        viewModel.bind(this, messageId)
+        supportActionBar?.hide()
 
         initView()
 
@@ -77,10 +77,19 @@ internal class PreviewActivity : AppCompatActivity() {
             AndroidSchedulers.mainThread()).subscribe {
             saveImageToPhone()
         })
+
+        recording = Recording()
+        recording.setDelegate(this)
+        recordingPlayer = RecordingPlayer(this)
+        recordingPlayer.setDelegate(this)
     }
 
     override fun finish() {
         iPreviewVideo.stopPlayback()
+        if (message.burn) {
+            ChatActivity.BURN_MESSAGE_ID = message.sid
+            setResult(100)
+        }
         super.finish()
     }
 
@@ -98,6 +107,11 @@ internal class PreviewActivity : AppCompatActivity() {
         iCloseButton = findViewById(R.id.iCloseButton)
         iTipsText = findViewById(R.id.iTipsText)
         iSaveButton = findViewById(R.id.iSaveButton)
+        iContentText = findViewById(R.id.iContentText)
+        iVoiceButton = findViewById(R.id.iVoiceButton)
+        iVoiceButton.setOnClickListener {
+            playVoice()
+        }
         iTipsText.setOnLongClickListener {
             if (error.isNotEmpty()) {
                 ToastUtils.showShort(error)
@@ -120,37 +134,109 @@ internal class PreviewActivity : AppCompatActivity() {
         }
     }
 
-    fun updateView(message: VMMessage) {
-        handler.post {
+    override fun onStart() {
+        super.onStart()
+        updateView(message)
+    }
+
+    private fun updateView(message: VMMessage) {
+        if (message.burn) {
             when (message.content.type) {
                 VMMessageContent.Type.Image -> {
-                    val image = message.content as VMMessageContentImage
-                    val localPath = image.localPath
-                    if (localPath.isNotEmpty() && FileUtils.isFileExists(localPath)) {
-                        // 本地存在文件
-                        iPreviewImage.visibility = VISIBLE
-                        iSaveButton.visibility = VISIBLE
-                        ImageProvider.loadImageWithResult(this, localPath, iPreviewImage, null)
-                        return@post
-                    }
-                    val downloadUrl = image.getDownloadUrl
-                    startLoading()
-                    iPreviewImage.visibility = VISIBLE
-                    ImageProvider.loadImageWithResult(this, downloadUrl, iPreviewImage, completion = {
-                        stopLoading()
-                        iSaveButton.visibility = VISIBLE
-                    })
+                    showImage()
                 }
                 VMMessageContent.Type.Video -> {
-                    viewModel.initVideoFile(message)
+                    showVideo()
+                }
+                VMMessageContent.Type.Text -> {
+                    val text = Companion.message.content as VMMessageContentText
+                    iContentText.visibility = VISIBLE
+                    iContentText.text = text.plainText
+                }
+                VMMessageContent.Type.Voice -> {
+                    iVoiceButton.visibility = VISIBLE
+                }
+            }
+        } else {
+            when (message.content.type) {
+                VMMessageContent.Type.Image -> {
+                    showImage()
+                }
+                VMMessageContent.Type.Video -> {
+                    showVideo()
                 }
                 else -> {
                 }
             }
         }
+
     }
 
-    fun startLoading() {
+    private fun playVoice() {
+        val voice = Companion.message.content as VMMessageContentVoice
+        if (message.sid == playingVoiceId) {
+            // 重复点击同一个语音
+            playingVoiceId = ""
+            recordingPlayer.stopPlay()
+            resetPlayingVoice { }
+            return
+        }
+        resetPlayingVoice {
+            playingVoiceId = message.sid
+            val voice = message.content as? VMMessageContentVoice ?: return@resetPlayingVoice
+            voice.played = true
+            message.content = voice
+            voicePlay(message)
+            if (message.sid == VMConversation.MESSAGE_ID_VOICE) {
+                (VMConversation.messages[VMConversation.CONVERSION_ID_GROUP]!!.first().content as VMMessageContentVoice).played = true
+            }
+        }
+    }
+
+    private fun voicePlay(message: VMMessage) {
+        if (message.sid != playingVoiceId) {
+            // 防止下载成功后用户已点击其他语音
+            return
+        }
+        iVoiceButton.isEnabled = true
+        val voice = message.content as? VMMessageContentVoice ?: return
+        recordingPlayer.startPlay(voice.localPath)
+    }
+
+    private fun resetPlayingVoice(completion: () -> Unit) {
+        completion()
+    }
+
+    override fun onStop() {
+        recordingPlayer.stopPlay()
+        super.onStop()
+    }
+
+    private fun showVideo() {
+        val video = message.content as VMMessageContentVideo
+        playVideo(video.localPath)
+    }
+
+    private fun showImage() {
+        val image = message.content as VMMessageContentImage
+        val localPath = image.localPath
+        if (localPath.isNotEmpty() && FileUtils.isFileExists(localPath)) {
+            // 本地存在文件
+            iPreviewImage.visibility = VISIBLE
+            //iSaveButton.visibility = VISIBLE
+            ImageProvider.loadImageWithResult(this, localPath, iPreviewImage, null)
+            return
+        }
+        val downloadUrl = image.getDownloadUrl
+        startLoading()
+        iPreviewImage.visibility = VISIBLE
+        ImageProvider.loadImageWithResult(this, downloadUrl, iPreviewImage, completion = {
+            stopLoading()
+            //iSaveButton.visibility = VISIBLE
+        })
+    }
+
+    private fun startLoading() {
         handler.post {
             iPreviewProgress.visibility = VISIBLE
         }
@@ -162,18 +248,7 @@ internal class PreviewActivity : AppCompatActivity() {
         }
     }
 
-    fun showDownloadProgress(percent: Int) {
-        handler.post {
-            iPreviewProgress.visibility = GONE
-            iPreviewVideo.visibility = GONE
-            iPreviewImage.visibility = GONE
-            iTipsText.visibility = VISIBLE
-            val progress = "$percent %"
-            iTipsText.text = progress
-        }
-    }
-
-    fun playVideo(path: String) {
+    private fun playVideo(path: String) {
         handler.post {
             this.filePath = path
             iPreviewProgress.visibility = GONE
@@ -189,16 +264,6 @@ internal class PreviewActivity : AppCompatActivity() {
                 it.start()
             }
             iPreviewVideo.start()
-        }
-    }
-
-    fun showVideoError(error: String) {
-        this.error = error
-        handler.post {
-            iPreviewProgress.visibility = GONE
-            iPreviewVideo.visibility = GONE
-            iTipsText.visibility = VISIBLE
-            iTipsText.text = getString(R.string.activity_preview_video_failed)
         }
     }
 
@@ -227,6 +292,29 @@ internal class PreviewActivity : AppCompatActivity() {
             }))
         }
 
+    }
+
+    override fun recordingWillOverTime(restTime: Long) {
+    }
+
+    override fun recordingCompleted(path: String, duration: Long) {
+    }
+
+    override fun recordingVolumeChanged(volume: Int) {
+    }
+
+    override fun recordingOnError(msg: String) {
+        ToastUtils.showShort(msg)
+    }
+
+    override fun recordingFailedTimeTooShort() {
+    }
+
+    override fun recordingPlayerCompleted() {
+        resetPlayingVoice {
+            playingVoiceId = ""
+            iVoiceButton.isEnabled = true
+        }
     }
 
 

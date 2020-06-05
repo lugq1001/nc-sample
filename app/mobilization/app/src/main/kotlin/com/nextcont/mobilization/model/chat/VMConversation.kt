@@ -55,14 +55,17 @@ class VMConversation {
             conversions.add(group)
             messages[CONVERSION_ID_GROUP] = groupMessages
 
+            val burnMessages = burnMessage()
             val contact = VMContact.testData(true)[1]
             val personal = VMConversation()
             personal.sid = contact.sid
             personal.name = contact.displayName
-            personal.snippet = "[私密消息]"
+            personal.snippet = burnMessages.last().contentSnippet
             personal.thumbnail = contact.avatar
             personal.activeTime = System.currentTimeMillis() - 3600 * 3
             personal.hasUnreadMessage = true
+
+            messages[personal.sid] = burnMessages
 
             conversions.add(personal)
 
@@ -141,6 +144,57 @@ class VMConversation {
 
             return mutableListOf(msgVoice, msgImg, msgVideo, msg1, msg2, msg3, msg4)
         }
+
+        private fun burnMessage(): MutableList<VMMessage> {
+            // 图片消息
+            val msgVideo = VMMessage()
+            msgVideo.burn = true
+            msgVideo.sender = VMContact.testData(true)[3]
+            msgVideo.sendStatus = VMMessage.SendState.Success
+            msgVideo.read = false
+            msgVideo.displayTime = System.currentTimeMillis() - 3600 * 5
+            val video = VMMessageContentVideo()
+            video.localPath = copyVideo()
+            msgVideo.content = video
+
+            // 图片消息
+            val msgImg = VMMessage()
+            msgImg.burn = true
+            msgImg.sender = VMContact.testData(true)[3]
+            msgImg.sendStatus = VMMessage.SendState.Success
+            msgImg.read = false
+            msgImg.displayTime = System.currentTimeMillis() - 3600 * 5
+            val img = VMMessageContentImage()
+            img.imageUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591269459515&di=8db7fe77d7c4199df32caf68c638738c&imgtype=0&src=http%3A%2F%2Fwww.gx.xinhuanet.com%2Ftitlepic%2F1113163460_title0h.jpg"
+            img.thumbnailUrl = img.imageUrl
+            msgImg.content = img
+
+            // 语音消息
+            val msgVoice = VMMessage()
+            msgVoice.burn = true
+            msgVoice.sender = VMContact.testData(true)[3]
+            msgVoice.sendStatus = VMMessage.SendState.Success
+            msgVoice.read = false
+            msgVoice.displayTime = System.currentTimeMillis() - 3600 * 3
+            val voice = VMMessageContentVoice()
+            voice.localPath = copyVoice()
+            voice.duration = 15
+            voice.played = false
+            msgVoice.content = voice
+
+            val msg1 = VMMessage()
+            msg1.burn = true
+            msg1.sender = VMContact.testData(true)[3]
+            msg1.sendStatus = VMMessage.SendState.Success
+            msg1.read = false
+            msg1.displayTime = System.currentTimeMillis()
+            val text1 = VMMessageContentText()
+            text1.plainText = "因训练成绩优异，下周起你的每月补贴会由之前的320元提升至450元，特此通告。"
+            msg1.content = text1
+
+            return mutableListOf(msgVoice, msgImg, msgVideo, msg1)
+        }
+
 
         fun create(c: VMContact): VMConversation {
             val conversion = VMConversation()

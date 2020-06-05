@@ -17,15 +17,6 @@ internal class PreviewViewModel {
         disposableBag.clear()
     }
 
-    fun bind(activity: PreviewActivity, messageId: String) {
-        this.activity = WeakReference(activity)
-//        Store.openRealm.executeTransactionAsync { realm ->
-//            VMMessage.findBySid(realm, messageId)?.let {
-//                this.message = it
-//                this.activity?.get()?.updateView(it)
-//            }
-//        }
-    }
 
     fun downloadImage(url: String): Single<String> {
         return Single.create { emitter ->

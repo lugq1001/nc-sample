@@ -1,7 +1,9 @@
 package com.nextcont.mobilization.ui.chat
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -11,6 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,10 +24,10 @@ import com.nextcont.mobilization.MobApp
 import com.nextcont.mobilization.R
 import com.nextcont.mobilization.model.User
 import com.nextcont.mobilization.model.chat.*
+import com.nextcont.mobilization.service.LocationService
 import com.nextcont.mobilization.service.recording.Recording
 import com.nextcont.mobilization.service.recording.RecordingPlayer
-import com.nextcont.mobilization.store.Store
-import com.nextcont.mobilization.util.DialogUtil
+import com.nextcont.mobilization.ui.main.MainActivity
 import com.nextcont.mobilization.util.MatisseEngine
 import com.nextcont.mobilization.widget.ChatInputBar
 import com.nextcont.mobilization.widget.ChatRecordingButton
@@ -53,7 +57,10 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
 
         private const val REQ_CODE_CHOOSE_IMAGE = 100
 
-        val closeMonitor = PublishSubject.create<Unit>()!!
+        private const val REQ_CODE_BURN_MESSAGE = 101
+        lateinit var BURN_MESSAGE_ID: String
+
+        val updateMonitor = PublishSubject.create<Unit>()!!
     }
 
     val viewModel = ChatViewModel()
@@ -66,8 +73,6 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
     private lateinit var recordingPlayer: RecordingPlayer
 
     private val loadMoreMonitor = PublishSubject.create<Unit>()
-
-
 
     private var isRecording = false
 
@@ -146,6 +151,7 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
         adapter.addChildClickViewIds(R.id.iContentVideoWrapper)
         adapter.addChildClickViewIds(R.id.iVoiceWrapper)
         adapter.addChildClickViewIds(R.id.iContentTextWrapper)
+        adapter.addChildClickViewIds(R.id.iBurnTextWrapper)
 
         adapter.setOnItemChildLongClickListener { _, view, position ->
             this.adapter.getItem(position).let {
@@ -172,6 +178,12 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
 
     override fun onStart() {
         super.onStart()
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            // 权限申请
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), 90)
+        }
+
         if (hasInit) {
             return
         }
@@ -181,7 +193,7 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
 
     override fun finish() {
         KeyboardUtils.hideSoftInput(this)
-        closeMonitor.onNext(Unit)
+        updateMonitor.onNext(Unit)
         super.finish()
     }
 
@@ -203,13 +215,8 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
                 R.id.iAvatarWrapper -> {
                     showUserInfo(it.sender)
                 }
-                R.id.iContentImageWrapper, R.id.iContentVideoWrapper -> {
-                    previewContent(it.sid)
-                }
-                R.id.iWarningWrapper -> {
-                    DialogUtil.showConfirm(this, getString(R.string.activity_chat_resend_confirm), "确定") {
-                        viewModel.resend(it)
-                    }
+                R.id.iContentImageWrapper, R.id.iContentVideoWrapper, R.id.iBurnTextWrapper -> {
+                    previewContent(it)
                 }
                 R.id.iVoiceWrapper -> {
                     playVoice(it)
@@ -245,14 +252,25 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
     /**
      * 查看图片、视频
      */
-    private fun previewContent(messageId: String) {
+    private fun previewContent(message: VMMessage) {
         if (isRecording) {
             return
         }
         val intent = Intent(this, PreviewActivity::class.java)
-        intent.putExtra(PreviewActivity.INTENT_KEY_MESSAGE_ID, messageId)
-        startActivity(intent)
+        PreviewActivity.message = message
+        if (message.burn) {
+            if (message.read) {
+                ToastUtils.showShort("该消息已销毁")
+            } else {
+                startActivityForResult(intent, REQ_CODE_BURN_MESSAGE)
+            }
+        } else {
+            startActivity(intent)
+        }
+
     }
+
+
 
     /**
      * TODO 点击头像
@@ -580,6 +598,17 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
                         return
                     }
                     viewModel.sendImage(it)
+                }
+            }
+            REQ_CODE_BURN_MESSAGE -> {
+                Timber.i("焚毁消息: $BURN_MESSAGE_ID")
+                val messages = adapter.data
+                val index = messages.indexOfFirst { msg ->
+                    msg.sid == BURN_MESSAGE_ID
+                }
+                if (index >= 0) {
+                    messages[index].read = true
+                    adapter.setList(messages)
                 }
             }
         }

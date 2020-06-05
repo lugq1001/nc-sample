@@ -6,12 +6,14 @@ import com.nextcont.mobilization.MobApp
 import com.nextcont.mobilization.R
 import com.nextcont.mobilization.model.User
 import com.nextcont.mobilization.store.entity.ENMessage
+import com.squareup.moshi.JsonClass
 import io.realm.Realm
 import io.realm.RealmObject
 import io.realm.Sort
 import java.text.SimpleDateFormat
 import java.util.*
 
+@JsonClass(generateAdapter = true)
 class VMMessage: MultiItemEntity {
 
     /**
@@ -41,6 +43,8 @@ class VMMessage: MultiItemEntity {
     /*时戳*/
     var time: Long = 0 // google数据以微秒为单位
 
+    var burn = false
+
     /**
      * 显示时间,入库,用于ui显示
      */
@@ -57,20 +61,25 @@ class VMMessage: MultiItemEntity {
 
     val contentSnippet: String
         get() {
-            return when (content.type) {
-                VMMessageContent.Type.Text -> {
-                    (content as VMMessageContentText).plainText
-                }
-                VMMessageContent.Type.Image -> {
-                    MobApp.Shared.getString(R.string.message_media_type_image)
-                }
-                VMMessageContent.Type.Video -> {
-                    MobApp.Shared.getString(R.string.message_media_type_video)
-                }
-                VMMessageContent.Type.Voice -> {
-                    MobApp.Shared.getString(R.string.message_media_type_voice)
+            if (burn) {
+                return "[私密消息, 阅后即焚]"
+            } else {
+                return when (content.type) {
+                    VMMessageContent.Type.Text -> {
+                        (content as VMMessageContentText).plainText
+                    }
+                    VMMessageContent.Type.Image -> {
+                        MobApp.Shared.getString(R.string.message_media_type_image)
+                    }
+                    VMMessageContent.Type.Video -> {
+                        MobApp.Shared.getString(R.string.message_media_type_video)
+                    }
+                    VMMessageContent.Type.Voice -> {
+                        MobApp.Shared.getString(R.string.message_media_type_voice)
+                    }
                 }
             }
+
         }
 
 

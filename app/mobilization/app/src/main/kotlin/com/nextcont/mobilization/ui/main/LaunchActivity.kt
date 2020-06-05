@@ -31,7 +31,7 @@ class LaunchActivity : AppCompatActivity() {
             || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             VMConversation.init()
             // 未登录
-            handler.postDelayed(Runnable {
+            handler.postDelayed({
                 startActivity(Intent(this, LoginActivity::class.java))
             }, 1500)
         } else {

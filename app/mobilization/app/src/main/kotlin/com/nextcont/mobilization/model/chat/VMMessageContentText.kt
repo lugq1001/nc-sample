@@ -1,8 +1,10 @@
 package com.nextcont.mobilization.model.chat
 
 import com.nextcont.mobilization.store.entity.ENTextContent
+import com.squareup.moshi.JsonClass
 import io.realm.Realm
 
+@JsonClass(generateAdapter = true)
 class VMMessageContentText: VMMessageContent() {
 
     override val type = Type.Text
