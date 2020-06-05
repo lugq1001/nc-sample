@@ -34,7 +34,7 @@ class VMContact private constructor() {
     companion object {
 
         val self: VMContact
-        get() = VMContact.testData(true)[0]
+        get() = testData(true)[0]
 
         /**
          * 查找联系人
@@ -115,8 +115,8 @@ class VMContact private constructor() {
             val arr = if (first) list else list2
             for (i in arr.indices) {
                 val contact = VMContact()
-                contact.localId = UUID.randomUUID().toString()
-                contact.sid = UUID.randomUUID().toString()
+                contact.localId = "${first}:$i"
+                contact.sid = contact.localId
                 contact.nickname = arr[i][0]
                 contact.role = arr[i][1]
                 contact.avatar = arr[i][2]

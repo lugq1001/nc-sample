@@ -36,6 +36,8 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import timber.log.Timber
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -347,11 +349,14 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
      * TODO 软键盘事件处理
      */
     private fun addKeyboardListener() {
-//        KeyboardVisibilityEvent.setEventListener(this) { isOpen ->
-//            if (isOpen) {
-//                handler.post { scrollToBottom() }
-//            }
-//        }
+        KeyboardVisibilityEvent.setEventListener(this, object : KeyboardVisibilityEventListener {
+            override fun onVisibilityChanged(isOpen: Boolean) {
+                if (isOpen) {
+                    handler.post { scrollToBottom() }
+                }
+            }
+
+        })
     }
 
     /**
@@ -414,7 +419,7 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
         }
     }
 
-    private fun updateMessages(messages: List<VMMessage>) {
+    fun updateMessages(messages: List<VMMessage>) {
         handler.post {
             messages.forEach { message ->
                 val index = this.adapter.data.indexOfFirst {
@@ -453,7 +458,7 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
         }
     }
 
-    fun voicePlay(message: VMMessage) {
+    private fun voicePlay(message: VMMessage) {
         if (message.sid != playingVoiceId) {
             // 防止下载成功后用户已点击其他语音
             return
@@ -480,11 +485,6 @@ internal class ChatActivity : AppCompatActivity(), ChatInputBar.ChatInputBarProt
                 }
             }
         })
-    }
-
-    fun voiceLoadingFailed(error: String) {
-        ToastUtils.showShort(error)
-        resetPlayingVoice { }
     }
 
     private fun resetPlayingVoice(completion: () -> Unit) {

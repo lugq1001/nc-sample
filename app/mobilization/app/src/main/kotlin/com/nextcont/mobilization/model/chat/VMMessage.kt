@@ -97,7 +97,7 @@ class VMMessage: MultiItemEntity {
     }
 
     override val itemType: Int
-        get() = if (User.load()?.id == sender.sid) 0 else 1
+        get() = if (VMContact.self.sid == sender.sid) 0 else 1
 
     companion object {
 
@@ -106,18 +106,17 @@ class VMMessage: MultiItemEntity {
         @SuppressLint("ConstantLocale")
         private val format = SimpleDateFormat("MM-dd HH:mm", Locale.getDefault())
 
-//        fun createLocalMessage(localId: String, conversation: VMConversation, sender: VMContact, content: VMMessageContent): VMMessage {
-//            val message = VMMessage()
-//            message.localId = localId
-//            message.sendLocalId = UUID.randomUUID().toString()
-//            message.sid = message.sendLocalId
-//            message.sender = sender
-//            message.conversation = conversation
-//            message.content = content
-//            message.time = System.currentTimeMillis() * 1000
-//            message.read = true
-//            return message
-//        }
+        fun createLocalMessage(localId: String, sender: VMContact, content: VMMessageContent): VMMessage {
+            val message = VMMessage()
+            message.localId = localId
+            message.sid = UUID.randomUUID().toString()
+            message.sender = sender
+            message.content = content
+            message.time = System.currentTimeMillis() * 1000
+            message.read = true
+            return message
+        }
+
 //        fun createLocalMessage(localId: String, conversation: VMConversation, sender: VMContact, content: VMMessageContent): VMMessage {
 //            val message = VMMessage()
 //            message.localId = localId

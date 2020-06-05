@@ -118,4 +118,6 @@ dependencies {
 
     implementation 'com.zhihu.android:matisse:0.5.3-beta3'
 
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC2'
+
 }

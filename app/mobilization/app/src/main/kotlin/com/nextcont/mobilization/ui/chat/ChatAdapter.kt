@@ -24,14 +24,9 @@ internal class ChatAdapter : BaseMultiItemQuickAdapter<VMMessage, ChatAdapter.Ch
     val imageLoadedSubject = PublishSubject.create<Unit>()
 
     override fun convert(holder: ChatViewHolder, item: VMMessage) {
-        val avatar: String = if (holder.itemViewType == 0) {
-            // 自己
-            VMContact.self.avatar
-        } else {
-            item.sender.avatar
-        }
-
-        ImageProvider.loadAvatar(context, avatar, holder.iAvatarImage, R.mipmap.nc_img_chat_avatar, R.dimen.chat_avatar_corner)
+        val sid = VMContact.self.sid
+        val type = item.itemType
+        ImageProvider.loadAvatar(context, item.sender.avatar, holder.iAvatarImage, R.mipmap.nc_img_chat_avatar, R.dimen.chat_avatar_corner)
 
         // TODO 头像点击
         //holder.addOnClickListener(R.id.iAvatarWrapper)

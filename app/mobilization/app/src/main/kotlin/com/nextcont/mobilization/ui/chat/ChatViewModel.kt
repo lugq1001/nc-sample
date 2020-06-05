@@ -1,14 +1,12 @@
 package com.nextcont.mobilization.ui.chat
 
-import com.nextcont.mobilization.model.chat.VMConversation
-import com.nextcont.mobilization.model.chat.VMMessage
-import com.nextcont.mobilization.model.chat.VMMessageContentImage
-import com.nextcont.mobilization.model.chat.VMMessageContentVoice
+import com.nextcont.mobilization.model.chat.*
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
 import java.lang.ref.WeakReference
+import java.util.*
 
 internal class ChatViewModel {
 
@@ -130,24 +128,24 @@ internal class ChatViewModel {
     }
 
     fun sendText(text: String) {
-//        var msg: VMMessage? = null
-//        Store.openRealm.executeTransactionAsync(Realm.Transaction { realm ->
-//            val localId = UUID.randomUUID().toString()
-//            val conversation = VMConversation.findBySid(realm, conversationId) ?: return@Transaction
-//            val sender = VMContact.create(User.load()!!)
-//            val textContent = VMMessageContentText.create(localId)
-//            textContent.plainText = text
-//            val message = VMMessage.createLocalMessage(localId, conversation, sender, textContent)
-//            message.sendStatus = VMMessage.SendState.Processing
-//            makeDisplayTime(message)
-//            message.saveOrUpdate(realm)
-//            activity?.get()?.showSendMessage(message)
-//            msg = message
-//        }, Realm.Transaction.OnSuccess {
-//            msg?.let {
-//                send(it)
-//            }
-//        })
+        val localId = UUID.randomUUID().toString()
+        val sender = VMContact.self
+        val textContent = VMMessageContentText.create(localId)
+        textContent.plainText = text
+        val message = VMMessage.createLocalMessage(localId, sender, textContent)
+        message.sendStatus = VMMessage.SendState.Success
+        makeDisplayTime(message)
+
+        if (VMConversation.messages[conversation.sid] == null) {
+            val messages = mutableListOf(message)
+            VMConversation.messages[conversation.sid] = messages
+            VMConversation.conversions.add(0, conversation)
+        } else {
+            VMConversation.messages[conversation.sid]?.add(message)
+        }
+
+        activity?.get()?.showSendMessage(message)
+        send(message)
     }
 
 
@@ -286,18 +284,7 @@ internal class ChatViewModel {
 
     // TODO 发送
     private fun send(msg: VMMessage) {
-//        messageSendBag.add(ChatSession.sendSync(MsgConversationSendMsg0(msg)).subscribe({
-//            val msg1 = it as MsgConversationSendMsg1
-//            msg1.message?.let { msg ->
-//                activity?.get()?.updateMessages(listOf(msg))
-//            }
-//            MtaProvider.upload(MtaProvider.MtaEvent.IMSend)
-//        }, {
-//            if (it.localizedMessage == VMConversation.EXIT_GROUP_ERROR) {
-//                activity?.get()?.exitConversation()
-//            }
-//            messageFailed(msg)
-//        }))
+        activity?.get()?.updateMessages(listOf(msg))
     }
 
     private fun messageFailed(msg: VMMessage) {
