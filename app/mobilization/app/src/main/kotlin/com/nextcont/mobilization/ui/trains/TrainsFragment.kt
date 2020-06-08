@@ -32,9 +32,7 @@ class TrainsFragment : Fragment() {
             showTrans(TRANS_TYPE_ADDITION)
         }
         view.findViewById<RelativeLayout>(R.id.iPsychologicalView).setOnClickListener {
-            activity?.let {
-                DialogUtil.showAlert(it, "该模块暂未开放，敬请期待。")
-            }
+            startActivity(Intent(activity, AkaActivity::class.java))
         }
         return view
     }

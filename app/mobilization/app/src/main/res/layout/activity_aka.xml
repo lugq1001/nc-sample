@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/iStartButton"
+
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_h_2"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="中国MBTI-G人格类型量表"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_size_banner"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_3"
+                android:text="简介"
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="1994年，我国与美国东卡罗莱纳大学合作，对MBTI-G量表进行系统的翻译和修订，经过近六年的工作，基本完成了中文版MBTI人格测验量表的修订工作。MBTI-G中文版量表应用于陆军院校学员军事职业资格评估与分类研究中，也可以利用本量表为企业及有关单位进行人才测评与招聘。" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_4"
+                android:text="测试指导语"
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="1、选项没有“对”与“错”之分\n2、选择更接近你平时的感受或行为的那项\n3、请选择你是怎么样做的，而不要选择你想要怎样、以为会怎样、或者认为哪样更好\n4、性格无好坏，本量表检测你的性格倾向，而不是你的知识、技能、经验" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_4"
+                android:text="测试时间"
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextTips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_v_1"
+                android:text="6题版 5分钟" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+                android:layout_marginBottom="@dimen/spacing_v_4"
+                android:src="@mipmap/mbti" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/iStartButton"
+        style="@style/ButtonBottom"
+        android:layout_alignParentBottom="true"
+        android:text="开始测试" />
+
+</RelativeLayout>
